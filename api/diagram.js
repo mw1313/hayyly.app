@@ -9,10 +9,10 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: "No prompt provided" })
   }
  
-  const apiKey = process.env.ANTHROPIC_API_KEY
+  const apiKey = process.env.CLAUDE_API_KEY
  
   if (!apiKey) {
-    return res.status(500).json({ error: "ANTHROPIC_API_KEY is not set in environment variables" })
+    return res.status(500).json({ error: "CLAUDE_API_KEY is not set in environment variables" })
   }
  
   const systemPrompt = `You are a real estate exam visual explainer. When asked to explain a concept visually, you MUST respond with a valid SVG diagram only — no prose, no markdown, no explanation outside the SVG itself.
@@ -64,4 +64,3 @@ Rules:
     return res.status(500).json({ error: "Server error", details: err.message })
   }
 }
- 
