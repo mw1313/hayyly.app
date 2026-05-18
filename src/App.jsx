@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react"
-import { Zap, Target, Home, Calculator, List, Bot } from "lucide-react"
+import { Zap, Target, Home, Calculator, List, Bot, Check, X } from "lucide-react"
 import "./App.css"
  
 const KNOWLEDGE_BASE = `
