@@ -705,6 +705,7 @@ const navItems = [
 { id: "formulas", icon: <Calculator size={16} />, label: "Formulas" },
 { id: "terms", icon: <List size={16} />, label: "Key Terms" },
 { id: "tutor", icon: <Bot size={16} />, label: "AI Tutor" },
+{ id: "math", icon: <Calculator size={16} />, label: "Math" },
 ]
  
 const CORRECT_PASSWORD = "hayyly2025"
@@ -769,6 +770,7 @@ return (
 {tab === "formulas" && <Formulas unlockAchievement={unlockAchievement} formulasViewed={formulasViewed} setFormulasViewed={setFormulasViewed} />}
 {tab === "terms" && <KeyTerms />}
 {tab === "tutor" && <AITutor />}
+{tab === "math" && <MathPractice addXP={addXP} />}
 </main>
 </div>
 )
@@ -1140,6 +1142,343 @@ onKeyDown={e => e.key === "Enter" && send()}
 </div>
 )
 }
+ 
+const MATH_PROBLEMS = [
+{
+  id: 1, topic: "Commission",
+  problem: "A home sells for $320,000. The total commission rate is 6%, split equally between the listing and buyer's broker. How much does the listing broker earn?",
+  formula: "Commission = Sale Price × Rate. Then split in half.",
+  steps: ["Total commission: $320,000 × 0.06 = $19,200", "Split equally: $19,200 ÷ 2 = $9,600", "Listing broker earns $9,600"],
+  answer: "$9,600",
+  options: ["$19,200", "$9,600", "$8,000", "$12,000"],
+  correct: 1
+},
+{
+  id: 2, topic: "Commission Split",
+  problem: "A listing broker earns a $12,000 commission and pays 40% to the buyer's broker. How much does the listing broker keep?",
+  formula: "Listing broker keeps = Total Commission × (1 - Cooperating %)",
+  steps: ["Buyer's broker gets: $12,000 × 0.40 = $4,800", "Listing broker keeps: $12,000 - $4,800 = $7,200", "Or: $12,000 × 0.60 = $7,200"],
+  answer: "$7,200",
+  options: ["$4,800", "$6,000", "$7,200", "$8,400"],
+  correct: 2
+},
+{
+  id: 3, topic: "Loan-to-Value (LTV)",
+  problem: "A buyer purchases a home for $275,000 and makes a 20% down payment. What is the loan-to-value ratio?",
+  formula: "LTV = Loan Amount ÷ Appraised Value × 100",
+  steps: ["Down payment: $275,000 × 0.20 = $55,000", "Loan amount: $275,000 - $55,000 = $220,000", "LTV: $220,000 ÷ $275,000 × 100 = 80%"],
+  answer: "80%",
+  options: ["20%", "75%", "80%", "85%"],
+  correct: 2
+},
+{
+  id: 4, topic: "Down Payment",
+  problem: "A buyer is purchasing a $350,000 home with an FHA loan requiring a minimum 3.5% down payment. How much is the minimum down payment?",
+  formula: "Down Payment = Purchase Price × Down Payment %",
+  steps: ["Down payment: $350,000 × 0.035 = $12,250", "FHA minimum down = 3.5% for qualifying borrowers"],
+  answer: "$12,250",
+  options: ["$10,500", "$12,250", "$17,500", "$24,500"],
+  correct: 1
+},
+{
+  id: 5, topic: "Monthly Interest",
+  problem: "A borrower has a $200,000 loan at 6% annual interest. What is the interest portion of the first monthly payment?",
+  formula: "Monthly Interest = Loan Balance × (Annual Rate ÷ 12)",
+  steps: ["Annual interest: $200,000 × 0.06 = $12,000", "Monthly interest: $12,000 ÷ 12 = $1,000"],
+  answer: "$1,000",
+  options: ["$1,200", "$1,000", "$833", "$600"],
+  correct: 1
+},
+{
+  id: 6, topic: "Discount Points",
+  problem: "A buyer takes out a $180,000 mortgage. The lender charges 2 discount points. How much will the buyer pay in points?",
+  formula: "1 point = 1% of the loan amount",
+  steps: ["1 point = $180,000 × 0.01 = $1,800", "2 points = $1,800 × 2 = $3,600"],
+  answer: "$3,600",
+  options: ["$1,800", "$2,400", "$3,600", "$5,400"],
+  correct: 2
+},
+{
+  id: 7, topic: "Capitalization Rate",
+  problem: "A commercial property has a Net Operating Income of $45,000 and is listed for $600,000. What is the cap rate?",
+  formula: "Cap Rate = NOI ÷ Property Value × 100",
+  steps: ["Cap Rate = $45,000 ÷ $600,000 = 0.075", "Cap Rate = 7.5%"],
+  answer: "7.5%",
+  options: ["6%", "7.5%", "8%", "9%"],
+  correct: 1
+},
+{
+  id: 8, topic: "Property Value from Cap Rate",
+  problem: "A property generates an NOI of $36,000. Comparable properties in the area sell at a 6% cap rate. What is the estimated property value?",
+  formula: "Value = NOI ÷ Cap Rate",
+  steps: ["Value = $36,000 ÷ 0.06 = $600,000"],
+  answer: "$600,000",
+  options: ["$360,000", "$480,000", "$600,000", "$720,000"],
+  correct: 2
+},
+{
+  id: 9, topic: "Gross Rent Multiplier",
+  problem: "A rental property sells for $240,000 and generates $2,000/month in gross rent. What is the GRM?",
+  formula: "GRM = Sales Price ÷ Gross Monthly Rent",
+  steps: ["GRM = $240,000 ÷ $2,000 = 120"],
+  answer: "120",
+  options: ["60", "100", "120", "150"],
+  correct: 2
+},
+{
+  id: 10, topic: "Proration — Property Taxes",
+  problem: "Annual property taxes are $3,650. The closing date is March 31. The seller owes taxes for January 1 through March 31. How much does the seller owe at closing?",
+  formula: "Daily rate = Annual Amount ÷ 365. Seller's share = Daily Rate × Days Owned",
+  steps: ["Daily rate: $3,650 ÷ 365 = $10/day", "Days Jan 1 – Mar 31 = 90 days", "Seller owes: $10 × 90 = $900"],
+  answer: "$900",
+  options: ["$300", "$600", "$900", "$1,200"],
+  correct: 2
+},
+{
+  id: 11, topic: "Proration — Prepaid Rent",
+  problem: "A tenant pays $1,200/month rent on the 1st. The closing is on the 10th. The buyer is entitled to the remaining rent for the month (21 days remaining in a 30-day month). How much rent does the seller credit the buyer?",
+  formula: "Daily Rent = Monthly Rent ÷ Days in Month. Credit = Daily Rate × Remaining Days",
+  steps: ["Daily rent: $1,200 ÷ 30 = $40/day", "Remaining days: 21", "Buyer credit: $40 × 21 = $840"],
+  answer: "$840",
+  options: ["$400", "$600", "$840", "$1,200"],
+  correct: 2
+},
+{
+  id: 12, topic: "Transfer Tax",
+  problem: "A state charges a transfer tax of $1.10 per $1,000 of the sales price. A home sells for $350,000. How much is the transfer tax?",
+  formula: "Transfer Tax = (Sales Price ÷ 1,000) × Tax Rate per $1,000",
+  steps: ["$350,000 ÷ $1,000 = 350 units", "350 × $1.10 = $385"],
+  answer: "$385",
+  options: ["$350", "$385", "$3,850", "$3,500"],
+  correct: 1
+},
+{
+  id: 13, topic: "Seller's Net Proceeds",
+  problem: "A home sells for $400,000. The seller has an outstanding mortgage of $210,000, pays a 6% commission, and has $3,500 in closing costs. What are the seller's net proceeds?",
+  formula: "Net Proceeds = Sale Price - Mortgage - Commission - Closing Costs",
+  steps: ["Commission: $400,000 × 0.06 = $24,000", "Net = $400,000 - $210,000 - $24,000 - $3,500 = $162,500"],
+  answer: "$162,500",
+  options: ["$166,000", "$162,500", "$158,000", "$174,500"],
+  correct: 1
+},
+{
+  id: 14, topic: "Area Calculation",
+  problem: "A rectangular lot is 120 feet wide and 200 feet deep. What is the lot size in acres? (1 acre = 43,560 sq ft)",
+  formula: "Area = Length × Width. Acres = Square Feet ÷ 43,560",
+  steps: ["Area: 120 × 200 = 24,000 sq ft", "Acres: 24,000 ÷ 43,560 = 0.55 acres"],
+  answer: "0.55 acres",
+  options: ["0.45 acres", "0.55 acres", "0.65 acres", "1.1 acres"],
+  correct: 1
+},
+{
+  id: 15, topic: "Depreciation — Residential",
+  problem: "A residential rental property has a building value of $275,000 (land is excluded). What is the annual straight-line depreciation for tax purposes?",
+  formula: "Annual Depreciation = Building Value ÷ 27.5 years",
+  steps: ["$275,000 ÷ 27.5 = $10,000 per year"],
+  answer: "$10,000/year",
+  options: ["$7,051", "$10,000", "$14,474", "$12,500"],
+  correct: 1
+},
+{
+  id: 16, topic: "Depreciation — Commercial",
+  problem: "A commercial building has a value of $390,000. What is the annual straight-line depreciation?",
+  formula: "Annual Depreciation = Building Value ÷ 39 years",
+  steps: ["$390,000 ÷ 39 = $10,000 per year"],
+  answer: "$10,000/year",
+  options: ["$10,000", "$14,181", "$7,500", "$12,000"],
+  correct: 0
+},
+{
+  id: 17, topic: "Qualifying Buyer — DTI",
+  problem: "A buyer earns $6,000/month gross income. The lender allows a maximum 28% front-end debt-to-income ratio for housing costs. What is the maximum monthly housing payment?",
+  formula: "Max Payment = Gross Monthly Income × Front-End DTI %",
+  steps: ["$6,000 × 0.28 = $1,680/month maximum housing payment"],
+  answer: "$1,680",
+  options: ["$1,200", "$1,500", "$1,680", "$1,800"],
+  correct: 2
+},
+{
+  id: 18, topic: "Equity",
+  problem: "A homeowner's property is worth $425,000. They have an outstanding mortgage balance of $280,000. What is their equity?",
+  formula: "Equity = Market Value - Outstanding Loan Balance",
+  steps: ["Equity = $425,000 - $280,000 = $145,000"],
+  answer: "$145,000",
+  options: ["$145,000", "$165,000", "$280,000", "$425,000"],
+  correct: 0
+},
+{
+  id: 19, topic: "Commission — Agent Split",
+  problem: "A property sells for $500,000 at 6% total commission. The listing broker and buyer's broker split it 50/50. The listing agent receives 60% of their broker's share. How much does the listing agent earn?",
+  formula: "Work step by step: total → broker share → agent share",
+  steps: ["Total commission: $500,000 × 0.06 = $30,000", "Listing broker share: $30,000 ÷ 2 = $15,000", "Listing agent: $15,000 × 0.60 = $9,000"],
+  answer: "$9,000",
+  options: ["$18,000", "$15,000", "$9,000", "$6,000"],
+  correct: 2
+},
+{
+  id: 20, topic: "NOI and Operating Expenses",
+  problem: "A 10-unit apartment building generates $180,000 in annual gross rent. Vacancy is 5% and operating expenses are $72,000. What is the NOI?",
+  formula: "EGI = PGI - Vacancy Loss. NOI = EGI - Operating Expenses",
+  steps: ["Vacancy loss: $180,000 × 0.05 = $9,000", "EGI: $180,000 - $9,000 = $171,000", "NOI: $171,000 - $72,000 = $99,000"],
+  answer: "$99,000",
+  options: ["$108,000", "$99,000", "$90,000", "$72,000"],
+  correct: 1
+},
+]
+ 
+function MathPractice({ addXP }) {
+const [mode, setMode] = useState("menu")
+const [currentIdx, setCurrentIdx] = useState(0)
+const [selected, setSelected] = useState(null)
+const [showSolution, setShowSolution] = useState(false)
+const [score, setScore] = useState(0)
+const [answered, setAnswered] = useState(0)
+const [topic, setTopic] = useState("All")
+const [xpEarned, setXpEarned] = useState(0)
+ 
+const topics = ["All", ...Array.from(new Set(MATH_PROBLEMS.map(p => p.topic)))]
+const filtered = topic === "All" ? MATH_PROBLEMS : MATH_PROBLEMS.filter(p => p.topic === topic)
+ 
+const problem = filtered[currentIdx % filtered.length]
+ 
+const handleAnswer = (idx) => {
+if (selected !== null) return
+setSelected(idx)
+setShowSolution(true)
+setAnswered(a => a + 1)
+if (idx === problem.correct) {
+setScore(s => s + 1)
+setXpEarned(x => x + 15)
+addXP(15)
+}
+}
+ 
+const next = () => {
+setSelected(null)
+setShowSolution(false)
+setCurrentIdx(i => i + 1)
+}
+ 
+if (mode === "menu") return (
+<div className="section">
+<h2 className="gradient-text">Math Practice</h2>
+<p className="muted-text mb16">Master every calculation the PSI exam tests. Each problem shows the formula and step-by-step solution.</p>
+<div style={{ display: "flex", gap: 12, flexWrap: "wrap", marginBottom: 24 }}>
+{topics.map(t => (
+<button key={t} className={`quick-prompt-btn ${topic === t ? "active" : ""}`} onClick={() => setTopic(t)} style={{ fontSize: "0.8rem" }}>{t}</button>
+))}
+</div>
+<div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 16, marginBottom: 24 }}>
+<div className="stat-card" style={{ cursor: "pointer" }} onClick={() => { setMode("practice"); setCurrentIdx(0); }}>
+<div style={{ fontSize: "2rem", marginBottom: 8 }}>🧮</div>
+<div style={{ fontWeight: 700, marginBottom: 4 }}>Practice Mode</div>
+<div className="muted-text" style={{ fontSize: "0.85rem" }}>Work through problems one at a time with full solutions shown after each answer.</div>
+</div>
+<div className="stat-card" style={{ cursor: "pointer" }} onClick={() => { setMode("quiz"); setCurrentIdx(0); setScore(0); setAnswered(0); setXpEarned(0); }}>
+<div style={{ fontSize: "2rem", marginBottom: 8 }}>🎯</div>
+<div style={{ fontWeight: 700, marginBottom: 4 }}>Quiz Mode</div>
+<div className="muted-text" style={{ fontSize: "0.85rem" }}>Test yourself with multiple choice. Track your score and earn XP for correct answers.</div>
+</div>
+<div className="stat-card" style={{ cursor: "pointer" }} onClick={() => setMode("formulas")}>
+<div style={{ fontSize: "2rem", marginBottom: 8 }}>📐</div>
+<div style={{ fontWeight: 700, marginBottom: 4 }}>Formula Sheet</div>
+<div className="muted-text" style={{ fontSize: "0.85rem" }}>Quick reference for all real estate math formulas. Review before test day.</div>
+</div>
+</div>
+<p className="muted-text" style={{ fontSize: "0.8rem" }}>{filtered.length} problems {topic !== "All" ? `in ${topic}` : "across all topics"} · 15 XP per correct answer</p>
+</div>
+)
+ 
+if (mode === "formulas") return (
+<div className="section">
+<button className="btn-ghost-sm" onClick={() => setMode("menu")} style={{ marginBottom: 16 }}>← Back</button>
+<h2 className="gradient-text">Math Formula Sheet</h2>
+<div style={{ display: "flex", flexDirection: "column", gap: 12, marginTop: 16 }}>
+{[
+{ name: "Commission", f: "Sale Price × Rate", ex: "$300,000 × 6% = $18,000" },
+{ name: "LTV Ratio", f: "Loan Amount ÷ Appraised Value × 100", ex: "$220,000 ÷ $275,000 = 80%" },
+{ name: "Down Payment", f: "Purchase Price × Down Payment %", ex: "$300,000 × 20% = $60,000" },
+{ name: "Monthly Interest", f: "Loan Balance × (Annual Rate ÷ 12)", ex: "$200,000 × (6% ÷ 12) = $1,000" },
+{ name: "Discount Points", f: "1 point = 1% of loan amount", ex: "2 pts on $200,000 = $4,000" },
+{ name: "Cap Rate", f: "NOI ÷ Property Value × 100", ex: "$30,000 ÷ $400,000 = 7.5%" },
+{ name: "Property Value", f: "NOI ÷ Cap Rate", ex: "$30,000 ÷ 0.075 = $400,000" },
+{ name: "GRM", f: "Sales Price ÷ Gross Monthly Rent", ex: "$240,000 ÷ $2,000 = 120" },
+{ name: "NOI", f: "EGI − Operating Expenses (no mortgage)", ex: "$171,000 − $72,000 = $99,000" },
+{ name: "EGI", f: "PGI − Vacancy & Credit Loss", ex: "$180,000 − $9,000 = $171,000" },
+{ name: "Equity", f: "Market Value − Loan Balance", ex: "$425,000 − $280,000 = $145,000" },
+{ name: "Proration (daily)", f: "Annual Amount ÷ 365 × Days", ex: "$3,650 ÷ 365 = $10/day" },
+{ name: "Transfer Tax", f: "(Sales Price ÷ 1,000) × Rate", ex: "($350,000 ÷ 1,000) × $1.10 = $385" },
+{ name: "Seller Net Proceeds", f: "Price − Mortgage − Commission − Costs", ex: "$400k − $210k − $24k − $3.5k = $162.5k" },
+{ name: "Residential Depreciation", f: "Building Value ÷ 27.5 years", ex: "$275,000 ÷ 27.5 = $10,000/yr" },
+{ name: "Commercial Depreciation", f: "Building Value ÷ 39 years", ex: "$390,000 ÷ 39 = $10,000/yr" },
+{ name: "Area (sq ft to acres)", f: "Square Feet ÷ 43,560", ex: "24,000 ÷ 43,560 = 0.55 acres" },
+{ name: "Max Housing Payment", f: "Gross Income × Front-End DTI %", ex: "$6,000 × 28% = $1,680" },
+].map((f, i) => (
+<div key={i} className="formula-card">
+<div style={{ fontWeight: 700, fontSize: "0.9rem", marginBottom: 4 }}>{f.name}</div>
+<div style={{ fontFamily: "monospace", color: "var(--color-blue)", fontSize: "0.85rem", marginBottom: 4 }}>{f.f}</div>
+<div className="muted-text" style={{ fontSize: "0.8rem" }}>Example: {f.ex}</div>
+</div>
+))}
+</div>
+</div>
+)
+ 
+return (
+<div className="section">
+<div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
+<button className="btn-ghost-sm" onClick={() => { setMode("menu"); setCurrentIdx(0); setSelected(null); setShowSolution(false); }}>← Back</button>
+<div className="muted-text" style={{ fontSize: "0.85rem" }}>
+{mode === "quiz" ? `Score: ${score}/${answered} · +${xpEarned} XP` : `Problem ${(currentIdx % filtered.length) + 1} of ${filtered.length}`}
+</div>
+</div>
+ 
+<div style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 16, padding: "1.5rem", marginBottom: 16 }}>
+<div style={{ fontSize: "0.75rem", fontWeight: 700, color: "var(--color-blue)", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: 8 }}>{problem.topic}</div>
+<p style={{ fontSize: "0.95rem", lineHeight: 1.65, marginBottom: 16 }}>{problem.problem}</p>
+<div style={{ background: "rgba(59,130,246,0.08)", border: "1px solid rgba(59,130,246,0.2)", borderRadius: 10, padding: "0.75rem 1rem", fontSize: "0.82rem", color: "var(--color-blue)" }}>
+<strong>Formula:</strong> {problem.formula}
+</div>
+</div>
+ 
+<div style={{ display: "flex", flexDirection: "column", gap: 10, marginBottom: 16 }}>
+{problem.options.map((opt, i) => {
+let bg = "rgba(255,255,255,0.03)"
+let border = "rgba(255,255,255,0.08)"
+if (selected !== null) {
+if (i === problem.correct) { bg = "rgba(34,197,94,0.12)"; border = "rgba(34,197,94,0.4)" }
+else if (i === selected && i !== problem.correct) { bg = "rgba(239,68,68,0.12)"; border = "rgba(239,68,68,0.4)" }
+}
+return (
+<button key={i} onClick={() => handleAnswer(i)} disabled={selected !== null}
+style={{ background: bg, border: `1px solid ${border}`, borderRadius: 10, padding: "0.85rem 1rem", textAlign: "left", color: "var(--color-text)", cursor: selected !== null ? "default" : "pointer", fontSize: "0.9rem", transition: "all 0.2s" }}>
+<span style={{ fontWeight: 700, marginRight: 8, color: "var(--color-muted)" }}>{["A","B","C","D"][i]}.</span>{opt}
+</button>
+)
+})}
+</div>
+ 
+{showSolution && (
+<div style={{ background: "rgba(34,197,94,0.06)", border: "1px solid rgba(34,197,94,0.2)", borderRadius: 12, padding: "1rem 1.2rem", marginBottom: 16 }}>
+<div style={{ fontWeight: 700, color: "#22c55e", marginBottom: 8 }}>Step-by-Step Solution</div>
+{problem.steps.map((s, i) => (
+<div key={i} style={{ fontSize: "0.88rem", marginBottom: 4, paddingLeft: 8 }}>
+<span style={{ color: "var(--color-blue)", fontWeight: 700, marginRight: 6 }}>{i + 1}.</span>{s}
+</div>
+))}
+<div style={{ marginTop: 10, fontWeight: 700, color: "#22c55e", fontSize: "0.9rem" }}>Answer: {problem.answer}</div>
+</div>
+)}
+ 
+{selected !== null && (
+<button className="btn btn-gradient" onClick={next}>
+{currentIdx >= filtered.length - 1 ? "Start Over" : "Next Problem →"}
+</button>
+)}
+</div>
+)
+}
+ 
 function PasswordGate({ onUnlock }) {
 const [name, setName] = useState("")
 const [password, setPassword] = useState("")
@@ -1254,4 +1593,3 @@ Paid access only · <a href="https://hayyly.vercel.app" style={{ color: "#3b82f6
 </div>
 )
 }
- 
