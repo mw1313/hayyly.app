@@ -200,3 +200,57 @@ background-size: 100% 32px, 60px 100%;
 .gradient-text { font-size: 1.3rem; }
 }
  
+/* ── NAV ACTIVE PIP ── */
+.nav-btn { position: relative; }
+.nav-active-pip {
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 18px;
+  height: 3px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #3b82f6, #10b981);
+}
+.nav-btn.active .nav-btn-icon svg {
+  stroke-width: 2.5;
+  filter: drop-shadow(0 0 4px rgba(59,130,246,0.5));
+}
+.nav-btn-icon { display: flex; align-items: center; }
+.nav-btn-label { display: flex; align-items: center; }
+ 
+/* ── OPTION STATE ICONS ── */
+.option { position: relative; }
+.option-state-icon {
+  flex-shrink: 0;
+  transition: transform 0.2s;
+}
+.correct-icon { color: #34d399; }
+.wrong-icon { color: #f87171; }
+.option.correct .option-letter {
+  background: rgba(16,185,129,0.3);
+  color: #34d399;
+}
+.option.wrong .option-letter {
+  background: rgba(239,68,68,0.3);
+  color: #f87171;
+}
+ 
+/* ── EXPLANATION HEADERS ── */
+.exp-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 700;
+  font-size: 0.82rem;
+  margin-bottom: 6px;
+  letter-spacing: 0.01em;
+}
+.correct-header { color: #34d399; }
+.wrong-header { color: #f87171; }
+ 
+/* ── FLASHCARD BUTTONS ── */
+.btn-ghost svg, .btn-gradient svg {
+  flex-shrink: 0;
+}
+ 
