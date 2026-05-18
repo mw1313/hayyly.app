@@ -1,5 +1,4 @@
 export default async function handler(req, res) {
-  // Only allow POST
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" })
   }
@@ -10,9 +9,16 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: "No prompt provided" })
   }
  
+  const apiKey = process.env.GEMINI_API_KEY
+ 
+  if (!apiKey) {
+    console.error("GEMINI_API_KEY is not set")
+    return res.status(500).json({ error: "API key not configured" })
+  }
+ 
   try {
     const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${process.env.GEMINI_API_KEY}`,
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -25,6 +31,7 @@ export default async function handler(req, res) {
     const data = await response.json()
  
     if (!response.ok) {
+      console.error("Gemini error:", JSON.stringify(data))
       return res.status(500).json({ error: "Gemini API error", details: data })
     }
  
@@ -32,6 +39,8 @@ export default async function handler(req, res) {
     return res.status(200).json({ text })
  
   } catch (err) {
+    console.error("Server error:", err.message)
     return res.status(500).json({ error: "Server error", details: err.message })
   }
 }
+ 
