@@ -396,7 +396,8 @@ const [newAchievement, setNewAchievement] = useState(null)
 const [userName, setUserName] = useState(() => localStorage.getItem("userName") || "")
 const [isUnlocked, setIsUnlocked] = useState(() => localStorage.getItem("isUnlocked") === "true")
 const [cardsStudied, setCardsStudied] = useState(() => parseInt(localStorage.getItem("cardsStudied") || "0"))
-const [formulasViewed, setFormulasViewed] = useState(() => parseInt(localStorage.getItem("formulasViewed") || "0"))
+const [lastCategory, setLastCategory] = useState("All")
+ const [formulasViewed, setFormulasViewed] = useState(() => parseInt(localStorage.getItem("formulasViewed") || "0"))
 const [totalAnswered, setTotalAnswered] = useState(() => parseInt(localStorage.getItem("totalAnswered") || "0"))
  
 useEffect(() => {
