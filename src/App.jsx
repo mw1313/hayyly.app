@@ -525,10 +525,10 @@ return (
  
 <header className="header">
 <div className="logo">
-<div className="logo-icon">RE</div>
+<div className="logo-icon">HY</div>
 <div>
-<div className="logo-name">RealPrep</div>
-<div className="logo-sub">Ace Your Exam</div>
+<div className="logo-name">Hayyly</div>
+<div className="logo-sub">Pass Your Exam</div>
 </div>
 </div>
 <div className="header-stats">
