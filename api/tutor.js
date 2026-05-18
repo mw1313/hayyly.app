@@ -12,8 +12,7 @@ export default async function handler(req, res) {
   const apiKey = process.env.GEMINI_API_KEY
  
   if (!apiKey) {
-    console.error("GEMINI_API_KEY is not set")
-    return res.status(500).json({ error: "API key not configured" })
+    return res.status(500).json({ error: "GEMINI_API_KEY is not set in environment variables" })
   }
  
   try {
@@ -31,15 +30,18 @@ export default async function handler(req, res) {
     const data = await response.json()
  
     if (!response.ok) {
-      console.error("Gemini error:", JSON.stringify(data))
-      return res.status(500).json({ error: "Gemini API error", details: data })
+      // Return full error to client so we can debug
+      return res.status(500).json({ 
+        error: "Gemini API error", 
+        status: response.status,
+        details: data 
+      })
     }
  
     const text = data.candidates?.[0]?.content?.parts?.[0]?.text || "Sorry, I could not generate a response."
     return res.status(200).json({ text })
  
   } catch (err) {
-    console.error("Server error:", err.message)
     return res.status(500).json({ error: "Server error", details: err.message })
   }
 }
