@@ -856,12 +856,11 @@ const [messages, setMessages] = useState([
 ])
 const [input, setInput] = useState("")
 const [loading, setLoading] = useState(false)
-const [apiKey, setApiKey] = useState(() => localStorage.getItem("geminiKey") || "")
-const [showKey, setShowKey] = useState(!localStorage.getItem("geminiKey"))
+ 
  
 useEffect(() => { messagesEndRef.current?.scrollIntoView({ behavior: "smooth" }) }, [messages, loading])
  
-const saveKey = () => { localStorage.setItem("geminiKey", apiKey); setShowKey(false) }
+ 
  
 const QUICK_PROMPTS = [
 "What are the 7 Fair Housing protected classes?",
@@ -882,40 +881,25 @@ setLoading(true)
 const groundedPrompt = "You are a real estate exam prep tutor. You must ONLY answer using the knowledge base provided below. Do not use any outside knowledge. If a question is not covered, say: That topic is not in my knowledge base — try asking about a related topic.\n\nBe concise, clear, and exam-focused. Use bullet points for lists. Mention memory tricks when helpful.\n\nKNOWLEDGE BASE:\n" + KNOWLEDGE_BASE + "\n\nStudent question: " + msg
  
 try {
-const res = await fetch(
-"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=" + apiKey,
-{
+const res = await fetch("/api/tutor", {
 method: "POST",
 headers: { "Content-Type": "application/json" },
-body: JSON.stringify({ contents: [{ parts: [{ text: groundedPrompt }] }] })
-}
-)
+body: JSON.stringify({ prompt: groundedPrompt })
+})
 const data = await res.json()
-const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || "Something went wrong — please try again."
+const reply = data.text || "Something went wrong — please try again."
 setMessages(p => [...p, { role: "assistant", text: reply }])
 } catch {
-setMessages(p => [...p, { role: "assistant", text: "Connection error. Please check your API key and try again." }])
+setMessages(p => [...p, { role: "assistant", text: "Connection error. Please try again." }])
 }
 setLoading(false)
 }
- 
-if (showKey) return (
-<div className="section">
-<h2 className="gradient-text">AI Tutor Setup</h2>
-<div className="dark-card">
-<p className="muted-text mb16">Enter your free Google Gemini API key to enable the AI tutor.</p>
-<p className="muted-text mb16">Get one free at <strong className="emerald-text">aistudio.google.com</strong></p>
-<input className="search-input" type="password" placeholder="AIza..." value={apiKey} onChange={e => setApiKey(e.target.value)} />
-<button className="btn btn-gradient mt16" onClick={saveKey}>Save and Enable Tutor</button>
-</div>
-</div>
-)
  
 return (
 <div className="section tutor-section">
 <div className="tutor-header-row">
 <h2 className="gradient-text">AI Tutor</h2>
-<button className="btn-ghost-sm" onClick={() => setShowKey(true)}>Change Key</button>
+ 
 </div>
 <div className="quick-prompts">
 {QUICK_PROMPTS.map((p, i) => (
@@ -1058,3 +1042,4 @@ Paid access only · <a href="https://hayyly.vercel.app" style={{ color: "#3b82f6
 </div>
 )
 }
+ 
