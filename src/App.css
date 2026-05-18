@@ -60,14 +60,14 @@ background-size: 100% 32px, 60px 100%;
 .mt8 { margin-top: 8px; }
  
 /* ── BUTTONS ── */
-.btn { padding: 10px 20px; border-radius: 10px; border: none; cursor: pointer; font-weight: 700; font-size: 0.9rem; transition: all 0.2s; }
+.btn { padding: 10px 20px; border-radius: 10px; border: none; cursor: pointer; font-weight: 700; font-size: 0.9rem; transition: all 0.2s; display: inline-flex; align-items: center; justify-content: center; gap: 6px; }
 .btn-gradient { background: linear-gradient(135deg, #3b82f6, #10b981); color: white; }
 .btn-gradient:hover { opacity: 0.85; transform: translateY(-1px); }
 .btn-gradient:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
-.btn-ghost { background: var(--color-surface); border: 1px solid var(--color-border); color: var(--color-muted); }
+.btn-ghost { background: var(--color-surface); border: 1px solid var(--color-border); color: var(--color-text-secondary); }
 .btn-ghost:hover { border-color: var(--color-muted); color: var(--color-text); }
 .btn-big { padding: 14px 36px; font-size: 1.1rem; }
-.btn-ghost-sm { background: transparent; border: 1px solid var(--color-border); color: var(--color-muted); padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; cursor: pointer; transition: all 0.2s; }
+.btn-ghost-sm { background: transparent; border: 1px solid var(--color-border); color: var(--color-muted); padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; cursor: pointer; transition: all 0.2s; display: inline-flex; align-items: center; gap: 4px; }
 .btn-ghost-sm:hover { color: var(--color-text); border-color: var(--color-muted); }
  
 /* ── CARDS ── */
