@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react"
 import { Zap, Target, Home, Calculator, List, Bot } from "lucide-react"
 import "./App.css"
-
+ 
 const KNOWLEDGE_BASE = `
 PROPERTY OWNERSHIP:
 - Fee Simple Absolute: highest form of ownership; full control, no conditions; can sell, lease, or will freely.
@@ -17,7 +17,7 @@ PROPERTY OWNERSHIP:
 - Co-op: residents own shares in the corporation that owns the building. No deed for the individual unit.
 - MARIA test determines if personal property is a fixture: Method of attachment, Adaptability, Relationship of parties, Intention, Agreement.
 - Real property includes land, everything permanently attached, and associated rights (air, mineral, water, riparian rights).
-
+ 
 ENCUMBRANCES AND LIENS:
 - Specific lien: affects one parcel (mortgage, mechanic's lien, property tax lien).
 - General lien: affects all property of a debtor (judgment lien, IRS tax lien).
@@ -32,13 +32,13 @@ ENCUMBRANCES AND LIENS:
 - License: personal, revocable right to use another's land. NOT an easement.
 - Encroachment: structure physically invades another's property.
 - Deed restriction (restrictive covenant): private limitation on land use. Runs with the land and binds future owners.
-
+ 
 LEGAL DESCRIPTIONS:
 - Metes and Bounds: compass bearings and distances from a Point of Beginning (POB). Oldest method.
 - Rectangular Survey: townships (6-mile square = 36 sections). One section = 640 acres = 1 square mile.
 - Lot and Block: refers to a recorded subdivision map. Most common for residential properties.
 - 1 acre = 43,560 sq ft. 1 section = 640 acres. 1 township = 36 sections. 1 quarter section = 160 acres.
-
+ 
 CONTRACTS:
 - Essential elements: Offer, Acceptance, Consideration, Legal Capacity, Legal Purpose.
 - Void: no legal effect from the start. Voidable: one party may rescind. Unenforceable: valid but cannot be enforced in court.
@@ -53,7 +53,7 @@ CONTRACTS:
 - Option contract: unilateral contract giving buyer the exclusive right but not obligation to purchase at agreed price within set period.
 - Right of first refusal: right to match any offer before owner accepts it from someone else.
 - Contract for deed (land contract): buyer takes possession and makes payments to seller; seller retains legal title until paid in full.
-
+ 
 AGENCY:
 - Listing agent represents the seller. Buyer's agent represents the buyer.
 - Dual agency: one agent represents both parties; requires informed written consent from both.
@@ -71,7 +71,7 @@ AGENCY:
 - Commingling: illegally mixing client funds with broker's personal/business funds.
 - Conversion: illegally using client funds for personal use. May be criminal fraud.
 - Sherman Antitrust Act: prohibits commission rate-fixing, market allocation, group boycotts among competing brokers.
-
+ 
 FAIR HOUSING:
 - Federal Fair Housing Act (1968, amended 1988): 7 protected classes: Race, Color, Religion, National Origin, Sex, Familial Status, Disability.
 - Familial status: households with children under 18, pregnant women, persons securing custody.
@@ -86,7 +86,7 @@ FAIR HOUSING:
 - ADA: applies to commercial properties and public accommodations. Requires accessible design.
 - ECOA (Regulation B): prohibits credit discrimination based on race, color, religion, national origin, sex, marital status, age.
 - Disparate impact: neutral policy that disproportionately harms a protected class. Can be discriminatory without intent.
-
+ 
 FINANCING:
 - Mortgagor = borrower. Mortgagee = lender.
 - Promissory note: personal promise to repay the debt. Creates personal liability.
@@ -117,7 +117,7 @@ FINANCING:
 - TRID: combined TILA-RESPA rule. Loan Estimate replaced GFE. Closing Disclosure replaced HUD-1.
 - Right of rescission: 3 business days to cancel certain refinances on primary residence. Does NOT apply to purchase loans.
 - APR: true cost of borrowing including rate plus fees. Always higher than stated interest rate.
-
+ 
 APPRAISAL AND VALUE:
 - Market Value: most probable price a willing buyer and seller agree on in an arm's-length transaction with no pressure.
 - THREE APPROACHES TO VALUE:
@@ -136,7 +136,7 @@ APPRAISAL AND VALUE:
 - CMA: prepared by a real estate agent (not an appraiser) to estimate listing price. Not a formal appraisal.
 - USPAP: ethical and performance standards for licensed appraisers.
 - Reconciliation: appraiser weighs results of all three approaches and arrives at final value estimate.
-
+ 
 TRANSFER OF TITLE:
 - Essential deed elements: competent grantor, identifiable grantee, consideration, legal description, words of conveyance, grantor's signature. Delivery and acceptance required.
 - Recording provides constructive notice. Deed does NOT need to be recorded to be valid between parties.
@@ -154,7 +154,7 @@ TRANSFER OF TITLE:
 - Escheat: property reverts to state if owner dies without will or heirs.
 - 1031 Exchange: defers capital gains taxes when investment property swapped for like-kind. Identify in 45 days, close in 180 days.
 - Capital gains exclusion: primary residence up to $250,000 single or $500,000 married if lived there 2 of last 5 years.
-
+ 
 LAND USE AND GOVERNMENT CONTROLS:
 - Police power: government regulates land use for public health, safety, welfare. No compensation owed.
 - Eminent domain: takes property for public use with just compensation.
@@ -170,7 +170,7 @@ LAND USE AND GOVERNMENT CONTROLS:
 - Radon: naturally occurring radioactive gas. Tested with inexpensive kits.
 - Ad valorem tax: based on assessed value. Assessed Value times Tax Rate = Annual Tax. 1 mill = $1 per $1,000.
 - Special assessment: charged to properties that directly benefit from a specific public improvement.
-
+ 
 LEASES AND PROPERTY MANAGEMENT:
 - Gross lease: tenant pays fixed rent; landlord pays all operating expenses.
 - Net lease: tenant pays base rent plus expenses. NNN = taxes, insurance, and maintenance.
@@ -186,7 +186,7 @@ LEASES AND PROPERTY MANAGEMENT:
 - Security deposit: held in escrow; returned within statutory period minus lawful deductions.
 - Lease assignment: tenant transfers all remaining lease rights. Original tenant may remain liable.
 - Sublease: tenant transfers some but not all lease rights. Original tenant remains liable to landlord.
-
+ 
 LICENSE LAW:
 - Broker: can operate independently, hold client funds, supervise salespersons.
 - Salesperson: must work under a licensed broker. Cannot operate independently.
@@ -200,7 +200,7 @@ LICENSE LAW:
 - Secret profit: agent receives undisclosed compensation. Violates loyalty and disclosure duties.
 - Subagency: cooperating broker acts as seller's agent even when working with buyer.
 - Designated agency: one agent represents seller, different agent represents buyer within same firm.
-
+ 
 MATH FORMULAS AND KEY NUMBERS:
 - Commission = Sale Price times Commission Rate
 - LTV = Loan Amount divided by Appraised Value
@@ -218,7 +218,7 @@ MATH FORMULAS AND KEY NUMBERS:
 - Break-Even Ratio = (Expenses plus Debt Service) divided by Gross Income
 - KEY NUMBERS: 1 acre = 43,560 sq ft; 1 section = 640 acres; 1 township = 36 sections; residential depreciation = 27.5 years; commercial = 39 years; FHA minimum down = 3.5%; Loan Estimate = 3 business days; Closing Disclosure = 3 business days before closing; 1031 identification = 45 days; 1031 closing = 180 days; HUD complaint = 1 year; federal court Fair Housing = 2 years.
 `
-
+ 
 const FLASHCARDS = [
 { id: 1, category: "Ownership", term: "Fee Simple Absolute", definition: "The most complete form of property ownership — full control with no conditions or time limits. The owner can sell, lease, mortgage, or leave it to heirs without any restrictions." },
 { id: 2, category: "Ownership", term: "Fee Simple Defeasible", definition: "Ownership that can automatically end if a specified condition is violated. Example: land granted 'as long as it is used as a park' — use it for anything else and ownership ends." },
@@ -321,7 +321,7 @@ const FLASHCARDS = [
 { id: 99, category: "License Law", term: "Errors and Omissions Insurance", definition: "Professional liability insurance for real estate licensees that covers claims arising from mistakes, negligence, or failure to disclose material facts. Protects the agent if a client sues over a transaction error." },
 { id: 100, category: "License Law", term: "Subagency", definition: "When a listing broker authorizes another broker to act as the seller's agent. The cooperating broker becomes a subagent of the seller — even if working with the buyer — and owes fiduciary duties to the seller." },
 ]
-
+ 
 const QUIZ_QUESTIONS = [
 { category: "Ownership", question: "Which ownership type gives the most complete rights with no conditions attached?", options: ["Leasehold Estate","Life Estate","Fee Simple Absolute","Joint Tenancy"], answer: 2, explanation: "Fee Simple Absolute is the highest form of ownership — complete control with no time limits or conditions. The owner can sell, lease, mortgage, or will the property freely." },
 { category: "Ownership", question: "Two co-owners hold title with right of survivorship. When one owner passes away, their share:", options: ["Passes to their heirs via their will","Moves automatically to the surviving owner","Reverts to the state","Goes through probate"], answer: 1, explanation: "Right of survivorship in Joint Tenancy means the deceased owner's interest transfers automatically to the surviving owners — completely bypassing probate." },
@@ -415,7 +415,7 @@ const QUIZ_QUESTIONS = [
 { category: "Land Use", question: "The rezoning of one single parcel inconsistently with the surrounding area — benefiting only that owner — is generally considered illegal. This is called:", options: ["Variance","Special use permit","Spot zoning","Nonconforming use"], answer: 2, explanation: "Spot zoning is the illegal rezoning of a single parcel inconsistently with the surrounding area. Courts generally strike it down because it lacks a legitimate public purpose." },
 { category: "License Law", question: "A licensee assists both a buyer and seller without representing either as a fiduciary. This is known as:", options: ["Dual agency","Sub-agency","Transaction brokerage","Designated agency"], answer: 2, explanation: "A transaction broker assists both parties in completing a transaction but does not represent either as a fiduciary. Used in some states as an alternative to dual agency." },
 ]
-
+ 
 const FORMULAS = [
 { name: "Commission", formula: "Sale Price x Commission Rate", example: "$300,000 x 6% = $18,000", color: "blue" },
 { name: "Loan-to-Value (LTV)", formula: "Loan Amount / Appraised Value x 100", example: "$240,000 / $300,000 x 100 = 80%", color: "emerald" },
@@ -432,7 +432,7 @@ const FORMULAS = [
 { name: "Proration (Daily Rate)", formula: "Annual Amount / 365 days", example: "$3,650 / 365 = $10/day", color: "blue" },
 { name: "Break-Even Ratio", formula: "(Expenses + Debt Service) / Gross Income", example: "($12,000 + $15,000) / $30,000 = 90%", color: "emerald" },
 ]
-
+ 
 const ACHIEVEMENTS = [
 { id: "first_card", name: "First Flip!", icon: "🃏", desc: "Study your first flashcard", xp: 10 },
 { id: "cards_10", name: "Flashcard Fan", icon: "📚", desc: "Study 10 flashcards", xp: 20 },
@@ -443,20 +443,22 @@ const ACHIEVEMENTS = [
 { id: "streak_3", name: "On Fire!", icon: "🔥", desc: "3-day streak", xp: 30 },
 { id: "formula_master", name: "Math Wizard", icon: "🧮", desc: "View all formulas", xp: 20 },
 ]
-
+ 
 const QUIZ_CATEGORIES = ["All", ...Array.from(new Set(QUIZ_QUESTIONS.map(q => q.category)))]
 const CARD_CATEGORIES = ["All", ...Array.from(new Set(FLASHCARDS.map(c => c.category)))]
-
+ 
 export default function App() {
 const [tab, setTab] = useState("dashboard")
 const [xp, setXp] = useState(() => parseInt(localStorage.getItem("xp") || "0"))
 const [streak, setStreak] = useState(() => parseInt(localStorage.getItem("streak") || "0"))
 const [achievements, setAchievements] = useState(() => JSON.parse(localStorage.getItem("achievements") || "[]"))
 const [newAchievement, setNewAchievement] = useState(null)
+const [userName, setUserName] = useState(() => localStorage.getItem("userName") || "")
+const [isUnlocked, setIsUnlocked] = useState(() => localStorage.getItem("isUnlocked") === "true")
 const [cardsStudied, setCardsStudied] = useState(() => parseInt(localStorage.getItem("cardsStudied") || "0"))
 const [formulasViewed, setFormulasViewed] = useState(() => parseInt(localStorage.getItem("formulasViewed") || "0"))
 const [totalAnswered, setTotalAnswered] = useState(() => parseInt(localStorage.getItem("totalAnswered") || "0"))
-
+ 
 useEffect(() => {
 localStorage.setItem("xp", xp)
 localStorage.setItem("streak", streak)
@@ -464,10 +466,12 @@ localStorage.setItem("achievements", JSON.stringify(achievements))
 localStorage.setItem("cardsStudied", cardsStudied)
 localStorage.setItem("formulasViewed", formulasViewed)
 localStorage.setItem("totalAnswered", totalAnswered)
-}, [xp, streak, achievements, cardsStudied, formulasViewed, totalAnswered])
-
+localStorage.setItem("userName", userName)
+localStorage.setItem("isUnlocked", isUnlocked)
+}, [xp, streak, achievements, cardsStudied, formulasViewed, totalAnswered, userName, isUnlocked])
+ 
 const addXP = (amount) => setXp(prev => prev + amount)
-
+ 
 const unlockAchievement = (id) => {
 if (!achievements.includes(id)) {
 const ach = ACHIEVEMENTS.find(a => a.id === id)
@@ -478,10 +482,10 @@ setNewAchievement(ach)
 setTimeout(() => setNewAchievement(null), 3000)
 }
 }
-
+ 
 const level = Math.floor(xp / 100) + 1
 const xpForLevel = xp % 100
-
+ 
 const navItems = [
 { id: "dashboard", icon: <Home size={16} />, label: "Home" },
 { id: "flashcards", icon: <Zap size={16} />, label: "Flashcards" },
@@ -490,21 +494,35 @@ const navItems = [
 { id: "terms", icon: <List size={16} />, label: "Key Terms" },
 { id: "tutor", icon: <Bot size={16} />, label: "AI Tutor" },
 ]
-
+ 
+const CORRECT_PASSWORD = "hayyly2025"
+ 
+const handleUnlock = (name, password) => {
+if (password === CORRECT_PASSWORD && name.trim()) {
+setUserName(name.trim())
+setIsUnlocked(true)
+} else {
+return false
+}
+return true
+}
+ 
+if (!isUnlocked) return <PasswordGate onUnlock={handleUnlock} />
+ 
 return (
 <div className="app">
 <div className="notebook-bg" />
 <div className="dark-overlay" />
 <div className="orb orb-blue" />
 <div className="orb orb-emerald" />
-
+ 
 {newAchievement && (
 <div className="achievement-toast">
 <span>{newAchievement.icon}</span>
 <div><strong>Achievement Unlocked!</strong><p>{newAchievement.name} +{newAchievement.xp} XP</p></div>
 </div>
 )}
-
+ 
 <header className="header">
 <div className="logo">
 <div className="logo-icon">RE</div>
@@ -519,11 +537,11 @@ return (
 <div className="stat-pill emerald">🏆 Level {level}</div>
 </div>
 </header>
-
+ 
 <div className="xp-bar-container">
 <div className="xp-bar" style={{ width: `${xpForLevel}%` }} />
 </div>
-
+ 
 <nav className="nav">
 {navItems.map(t => (
 <button key={t.id} className={`nav-btn ${tab === t.id ? "active" : ""}`} onClick={() => setTab(t.id)}>
@@ -531,9 +549,9 @@ return (
 </button>
 ))}
 </nav>
-
+ 
 <main className="main">
-{tab === "dashboard" && <Dashboard xp={xp} streak={streak} level={level} xpForLevel={xpForLevel} achievements={achievements} cardsStudied={cardsStudied} totalAnswered={totalAnswered} setTab={setTab} />}
+{tab === "dashboard" && <Dashboard xp={xp} streak={streak} level={level} xpForLevel={xpForLevel} achievements={achievements} cardsStudied={cardsStudied} totalAnswered={totalAnswered} setTab={setTab} name={userName} />}
 {tab === "flashcards" && <Flashcards addXP={addXP} unlockAchievement={unlockAchievement} cardsStudied={cardsStudied} setCardsStudied={setCardsStudied} />}
 {tab === "quiz" && <Quiz addXP={addXP} unlockAchievement={unlockAchievement} totalAnswered={totalAnswered} setTotalAnswered={setTotalAnswered} />}
 {tab === "formulas" && <Formulas unlockAchievement={unlockAchievement} formulasViewed={formulasViewed} setFormulasViewed={setFormulasViewed} />}
@@ -543,30 +561,30 @@ return (
 </div>
 )
 }
-
-function Dashboard({ xp, streak, level, xpForLevel, achievements, cardsStudied, totalAnswered, setTab }) {
+ 
+function Dashboard({ xp, streak, level, xpForLevel, achievements, cardsStudied, totalAnswered, setTab, name }) {
 return (
 <div className="dashboard">
 <div className="welcome-card">
 <div className="welcome-badge"><span className="pulse-dot" />Study Session Active</div>
-<h1 className="gradient-text">Welcome back, Megan!</h1>
+<h1 className="gradient-text">Welcome back, {name}!</h1>
 <p className="welcome-sub">You are on your way to passing that real estate exam. Keep going!</p>
 <button className="btn btn-gradient" style={{ marginTop: 16 }} onClick={() => setTab("flashcards")}>Start Studying</button>
 </div>
-
+ 
 <div className="stats-grid">
 <div className="stat-card blue"><div className="stat-icon-wrap">⚡</div><div className="stat-val">{xp}</div><div className="stat-lbl">Total XP</div></div>
 <div className="stat-card emerald"><div className="stat-icon-wrap">🏆</div><div className="stat-val">{level}</div><div className="stat-lbl">Level</div></div>
 <div className="stat-card red"><div className="stat-icon-wrap">🔥</div><div className="stat-val">{streak}</div><div className="stat-lbl">Day Streak</div></div>
 <div className="stat-card blue"><div className="stat-icon-wrap">🃏</div><div className="stat-val">{cardsStudied}</div><div className="stat-lbl">Cards Studied</div></div>
 </div>
-
+ 
 <div className="dark-card">
 <div className="card-header"><span className="card-title">Level Progress</span><span className="emerald-text">{xpForLevel}/100 XP</span></div>
 <div className="level-bar"><div className="level-fill" style={{ width: `${xpForLevel}%` }} /></div>
 <p className="muted-text">Level {level} to Level {level + 1}</p>
 </div>
-
+ 
 <div className="dark-card">
 <div className="card-header"><span className="card-title">Content Library</span></div>
 <div className="stats-grid" style={{ marginTop: 8 }}>
@@ -576,7 +594,7 @@ return (
 <div className="stat-card"><div className="stat-val" style={{ fontSize: "1.2rem" }}>{totalAnswered}</div><div className="stat-lbl">Answered</div></div>
 </div>
 </div>
-
+ 
 <div className="dark-card">
 <div className="card-title mb16">Achievements</div>
 <div className="achievements-grid">
@@ -593,16 +611,16 @@ return (
 </div>
 )
 }
-
+ 
 function Flashcards({ addXP, unlockAchievement, cardsStudied, setCardsStudied }) {
 const [catFilter, setCatFilter] = useState("All")
 const [index, setIndex] = useState(0)
 const [flipped, setFlipped] = useState(false)
 const [studied, setStudied] = useState(new Set())
-
+ 
 const filtered = catFilter === "All" ? FLASHCARDS : FLASHCARDS.filter(c => c.category === catFilter)
 const card = filtered[index] || filtered[0]
-
+ 
 const handleFlip = () => {
 if (!flipped) {
 setFlipped(true)
@@ -617,11 +635,11 @@ if (n >= 30) unlockAchievement("cards_30")
 }
 } else setFlipped(false)
 }
-
+ 
 const next = () => { setIndex((index + 1) % filtered.length); setFlipped(false) }
 const prev = () => { setIndex((index - 1 + filtered.length) % filtered.length); setFlipped(false) }
 const handleCat = (cat) => { setCatFilter(cat); setIndex(0); setFlipped(false) }
-
+ 
 return (
 <div className="section">
 <div className="section-header">
@@ -655,7 +673,7 @@ return (
 </div>
 )
 }
-
+ 
 function Quiz({ addXP, unlockAchievement, totalAnswered, setTotalAnswered }) {
 const [catFilter, setCatFilter] = useState("All")
 const [pool, setPool] = useState([])
@@ -664,19 +682,19 @@ const [selected, setSelected] = useState(null)
 const [score, setScore] = useState(0)
 const [done, setDone] = useState(false)
 const [started, setStarted] = useState(false)
-
+ 
 const buildPool = (cat) => {
 const base = cat === "All" ? QUIZ_QUESTIONS : QUIZ_QUESTIONS.filter(q => q.category === cat)
 return [...base].sort(() => Math.random() - 0.5)
 }
-
+ 
 const startQuiz = () => {
 setPool(buildPool(catFilter))
 setQIndex(0); setSelected(null); setScore(0); setDone(false); setStarted(true)
 }
-
+ 
 const q = pool[qIndex]
-
+ 
 const handleAnswer = (i) => {
 if (selected !== null) return
 setSelected(i)
@@ -685,7 +703,7 @@ const next = totalAnswered + 1
 setTotalAnswered(next)
 if (next >= 50) unlockAchievement("quiz_50")
 }
-
+ 
 const handleNext = () => {
 if (qIndex + 1 >= pool.length) {
 setDone(true)
@@ -695,7 +713,7 @@ if (score + (selected === q.answer ? 1 : 0) === pool.length) unlockAchievement("
 setQIndex(qIndex + 1); setSelected(null)
 }
 }
-
+ 
 if (!started) return (
 <div className="section center-section">
 <h2 className="gradient-text">Practice Exam</h2>
@@ -711,7 +729,7 @@ if (!started) return (
 <button className="btn btn-gradient btn-big" onClick={startQuiz}>Start Quiz</button>
 </div>
 )
-
+ 
 if (done) {
 const pct = Math.round((score / pool.length) * 100)
 return (
@@ -726,7 +744,7 @@ return (
 </div>
 )
 }
-
+ 
 return (
 <div className="section">
 <div className="quiz-header-row">
@@ -758,7 +776,7 @@ return (
 </div>
 )
 }
-
+ 
 function Formulas({ unlockAchievement, formulasViewed, setFormulasViewed }) {
 const [viewed, setViewed] = useState(new Set())
 const handleView = (i) => {
@@ -782,7 +800,7 @@ return (
 </div>
 )
 }
-
+ 
 function FormulaCard({ formula, onView }) {
 const [open, setOpen] = useState(false)
 return (
@@ -792,17 +810,17 @@ return (
 </div>
 )
 }
-
+ 
 function KeyTerms() {
 const [search, setSearch] = useState("")
 const [catFilter, setCatFilter] = useState("All")
-
+ 
 const filtered = FLASHCARDS.filter(c => {
 const matchCat = catFilter === "All" || c.category === catFilter
 const matchText = c.term.toLowerCase().includes(search.toLowerCase()) || c.definition.toLowerCase().includes(search.toLowerCase())
 return matchCat && matchText
 })
-
+ 
 return (
 <div className="section">
 <div className="section-header">
@@ -830,7 +848,7 @@ return (
 </div>
 )
 }
-
+ 
 function AITutor() {
 const messagesEndRef = useRef(null)
 const [messages, setMessages] = useState([
@@ -840,11 +858,11 @@ const [input, setInput] = useState("")
 const [loading, setLoading] = useState(false)
 const [apiKey, setApiKey] = useState(() => localStorage.getItem("geminiKey") || "")
 const [showKey, setShowKey] = useState(!localStorage.getItem("geminiKey"))
-
+ 
 useEffect(() => { messagesEndRef.current?.scrollIntoView({ behavior: "smooth" }) }, [messages, loading])
-
+ 
 const saveKey = () => { localStorage.setItem("geminiKey", apiKey); setShowKey(false) }
-
+ 
 const QUICK_PROMPTS = [
 "What are the 7 Fair Housing protected classes?",
 "Explain Joint Tenancy vs Tenancy in Common",
@@ -853,16 +871,16 @@ const QUICK_PROMPTS = [
 "Explain the 3 approaches to appraisal",
 "What is blockbusting vs steering?",
 ]
-
+ 
 const send = async (overrideText) => {
 const msg = overrideText || input.trim()
 if (!msg || loading) return
 setInput("")
 setMessages(p => [...p, { role: "user", text: msg }])
 setLoading(true)
-
+ 
 const groundedPrompt = "You are a real estate exam prep tutor. You must ONLY answer using the knowledge base provided below. Do not use any outside knowledge. If a question is not covered, say: That topic is not in my knowledge base — try asking about a related topic.\n\nBe concise, clear, and exam-focused. Use bullet points for lists. Mention memory tricks when helpful.\n\nKNOWLEDGE BASE:\n" + KNOWLEDGE_BASE + "\n\nStudent question: " + msg
-
+ 
 try {
 const res = await fetch(
 "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=" + apiKey,
@@ -880,7 +898,7 @@ setMessages(p => [...p, { role: "assistant", text: "Connection error. Please che
 }
 setLoading(false)
 }
-
+ 
 if (showKey) return (
 <div className="section">
 <h2 className="gradient-text">AI Tutor Setup</h2>
@@ -892,7 +910,7 @@ if (showKey) return (
 </div>
 </div>
 )
-
+ 
 return (
 <div className="section tutor-section">
 <div className="tutor-header-row">
@@ -922,6 +940,120 @@ onChange={e => setInput(e.target.value)}
 onKeyDown={e => e.key === "Enter" && send()}
 />
 <button className="btn btn-gradient" onClick={() => send()} disabled={loading}>Send</button>
+</div>
+</div>
+)
+}
+function PasswordGate({ onUnlock }) {
+const [name, setName] = useState("")
+const [password, setPassword] = useState("")
+const [error, setError] = useState("")
+const [loading, setLoading] = useState(false)
+ 
+const handleSubmit = () => {
+if (!name.trim()) { setError("Please enter your first name."); return }
+if (!password.trim()) { setError("Please enter your access password."); return }
+setLoading(true)
+setTimeout(() => {
+const ok = onUnlock(name, password)
+if (!ok) {
+setError("Incorrect password. Check your email from Hayyly.")
+setLoading(false)
+}
+}, 600)
+}
+ 
+return (
+<div style={{
+minHeight: "100vh",
+background: "#09090b",
+display: "flex",
+alignItems: "center",
+justifyContent: "center",
+padding: "1.5rem",
+fontFamily: "'DM Sans', sans-serif"
+}}>
+<div style={{
+width: "100%",
+maxWidth: "400px",
+background: "#1a1a20",
+border: "1px solid rgba(255,255,255,0.08)",
+borderRadius: "20px",
+padding: "2.5rem",
+}}>
+<div style={{
+width: 48, height: 48,
+background: "linear-gradient(135deg, #3b82f6, #22c55e)",
+borderRadius: 12,
+display: "flex", alignItems: "center", justifyContent: "center",
+fontWeight: 800, fontSize: "1rem", color: "#fff",
+marginBottom: "1.5rem",
+fontFamily: "sans-serif"
+}}>HY</div>
+<h2 style={{ color: "#f4f4f5", fontWeight: 800, fontSize: "1.5rem", marginBottom: "0.4rem", letterSpacing: "-0.02em" }}>
+Welcome to Hayyly
+</h2>
+<p style={{ color: "#a1a1aa", fontSize: "0.875rem", marginBottom: "2rem", lineHeight: 1.6 }}>
+Enter your name and the password from your confirmation email to get started.
+</p>
+ 
+<label style={{ color: "#a1a1aa", fontSize: "0.78rem", fontWeight: 500, display: "block", marginBottom: "0.4rem", textTransform: "uppercase", letterSpacing: "0.06em" }}>First Name</label>
+<input
+style={{
+width: "100%", padding: "0.8rem 1rem",
+background: "rgba(255,255,255,0.05)",
+border: "1px solid rgba(255,255,255,0.1)",
+borderRadius: 10, color: "#f4f4f5",
+fontSize: "0.95rem", marginBottom: "1rem",
+outline: "none", boxSizing: "border-box",
+fontFamily: "inherit"
+}}
+placeholder="Your first name"
+value={name}
+onChange={e => { setName(e.target.value); setError("") }}
+onKeyDown={e => e.key === "Enter" && handleSubmit()}
+/>
+ 
+<label style={{ color: "#a1a1aa", fontSize: "0.78rem", fontWeight: 500, display: "block", marginBottom: "0.4rem", textTransform: "uppercase", letterSpacing: "0.06em" }}>Access Password</label>
+<input
+style={{
+width: "100%", padding: "0.8rem 1rem",
+background: "rgba(255,255,255,0.05)",
+border: "1px solid rgba(255,255,255,0.1)",
+borderRadius: 10, color: "#f4f4f5",
+fontSize: "0.95rem", marginBottom: error ? "0.75rem" : "1.5rem",
+outline: "none", boxSizing: "border-box",
+fontFamily: "inherit"
+}}
+type="password"
+placeholder="Password from your email"
+value={password}
+onChange={e => { setPassword(e.target.value); setError("") }}
+onKeyDown={e => e.key === "Enter" && handleSubmit()}
+/>
+ 
+{error && <p style={{ color: "#ef4444", fontSize: "0.82rem", marginBottom: "1rem" }}>{error}</p>}
+ 
+<button
+onClick={handleSubmit}
+disabled={loading}
+style={{
+width: "100%", padding: "0.9rem",
+background: "linear-gradient(90deg, #3b82f6, #22c55e, #f97316)",
+backgroundSize: "200% auto",
+color: "#fff", border: "none",
+borderRadius: 10, fontWeight: 700,
+fontSize: "0.95rem", cursor: loading ? "not-allowed" : "pointer",
+opacity: loading ? 0.7 : 1,
+fontFamily: "inherit"
+}}
+>
+{loading ? "Checking..." : "Access Hayyly →"}
+</button>
+ 
+<p style={{ color: "#52525b", fontSize: "0.75rem", textAlign: "center", marginTop: "1.5rem" }}>
+Paid access only · <a href="https://hayyly.vercel.app" style={{ color: "#3b82f6", textDecoration: "none" }}>Get access</a>
+</p>
 </div>
 </div>
 )
