@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react"
-import { Zap, Target, Home, Calculator, List, Bot, Check, X } from "lucide-react"
+import { Zap, Target, Home, Calculator, List, Bot, CheckCircle2, XCircle, CheckCheck, X, ChevronRight, BookOpen, Brain, FlipHorizontal } from "lucide-react"
 import "./App.css"
- 
+
 const KNOWLEDGE_BASE = `
 PROPERTY OWNERSHIP:
 - Fee Simple Absolute: highest form of ownership; full control, no conditions; can sell, lease, or will freely.
@@ -17,7 +17,7 @@ PROPERTY OWNERSHIP:
 - Co-op: residents own shares in the corporation that owns the building. No deed for the individual unit.
 - MARIA test determines if personal property is a fixture: Method of attachment, Adaptability, Relationship of parties, Intention, Agreement.
 - Real property includes land, everything permanently attached, and associated rights (air, mineral, water, riparian rights).
- 
+
 ENCUMBRANCES AND LIENS:
 - Specific lien: affects one parcel (mortgage, mechanic's lien, property tax lien).
 - General lien: affects all property of a debtor (judgment lien, IRS tax lien).
@@ -32,13 +32,13 @@ ENCUMBRANCES AND LIENS:
 - License: personal, revocable right to use another's land. NOT an easement.
 - Encroachment: structure physically invades another's property.
 - Deed restriction (restrictive covenant): private limitation on land use. Runs with the land and binds future owners.
- 
+
 LEGAL DESCRIPTIONS:
 - Metes and Bounds: compass bearings and distances from a Point of Beginning (POB). Oldest method.
 - Rectangular Survey: townships (6-mile square = 36 sections). One section = 640 acres = 1 square mile.
 - Lot and Block: refers to a recorded subdivision map. Most common for residential properties.
 - 1 acre = 43,560 sq ft. 1 section = 640 acres. 1 township = 36 sections. 1 quarter section = 160 acres.
- 
+
 CONTRACTS:
 - Essential elements: Offer, Acceptance, Consideration, Legal Capacity, Legal Purpose.
 - Void: no legal effect from the start. Voidable: one party may rescind. Unenforceable: valid but cannot be enforced in court.
@@ -53,7 +53,7 @@ CONTRACTS:
 - Option contract: unilateral contract giving buyer the exclusive right but not obligation to purchase at agreed price within set period.
 - Right of first refusal: right to match any offer before owner accepts it from someone else.
 - Contract for deed (land contract): buyer takes possession and makes payments to seller; seller retains legal title until paid in full.
- 
+
 AGENCY:
 - Listing agent represents the seller. Buyer's agent represents the buyer.
 - Dual agency: one agent represents both parties; requires informed written consent from both.
@@ -71,7 +71,7 @@ AGENCY:
 - Commingling: illegally mixing client funds with broker's personal/business funds.
 - Conversion: illegally using client funds for personal use. May be criminal fraud.
 - Sherman Antitrust Act: prohibits commission rate-fixing, market allocation, group boycotts among competing brokers.
- 
+
 FAIR HOUSING:
 - Federal Fair Housing Act (1968, amended 1988): 7 protected classes: Race, Color, Religion, National Origin, Sex, Familial Status, Disability.
 - Familial status: households with children under 18, pregnant women, persons securing custody.
@@ -86,7 +86,7 @@ FAIR HOUSING:
 - ADA: applies to commercial properties and public accommodations. Requires accessible design.
 - ECOA (Regulation B): prohibits credit discrimination based on race, color, religion, national origin, sex, marital status, age.
 - Disparate impact: neutral policy that disproportionately harms a protected class. Can be discriminatory without intent.
- 
+
 FINANCING:
 - Mortgagor = borrower. Mortgagee = lender.
 - Promissory note: personal promise to repay the debt. Creates personal liability.
@@ -117,7 +117,7 @@ FINANCING:
 - TRID: combined TILA-RESPA rule. Loan Estimate replaced GFE. Closing Disclosure replaced HUD-1.
 - Right of rescission: 3 business days to cancel certain refinances on primary residence. Does NOT apply to purchase loans.
 - APR: true cost of borrowing including rate plus fees. Always higher than stated interest rate.
- 
+
 APPRAISAL AND VALUE:
 - Market Value: most probable price a willing buyer and seller agree on in an arm's-length transaction with no pressure.
 - THREE APPROACHES TO VALUE:
@@ -136,7 +136,7 @@ APPRAISAL AND VALUE:
 - CMA: prepared by a real estate agent (not an appraiser) to estimate listing price. Not a formal appraisal.
 - USPAP: ethical and performance standards for licensed appraisers.
 - Reconciliation: appraiser weighs results of all three approaches and arrives at final value estimate.
- 
+
 TRANSFER OF TITLE:
 - Essential deed elements: competent grantor, identifiable grantee, consideration, legal description, words of conveyance, grantor's signature. Delivery and acceptance required.
 - Recording provides constructive notice. Deed does NOT need to be recorded to be valid between parties.
@@ -154,7 +154,7 @@ TRANSFER OF TITLE:
 - Escheat: property reverts to state if owner dies without will or heirs.
 - 1031 Exchange: defers capital gains taxes when investment property swapped for like-kind. Identify in 45 days, close in 180 days.
 - Capital gains exclusion: primary residence up to $250,000 single or $500,000 married if lived there 2 of last 5 years.
- 
+
 LAND USE AND GOVERNMENT CONTROLS:
 - Police power: government regulates land use for public health, safety, welfare. No compensation owed.
 - Eminent domain: takes property for public use with just compensation.
@@ -170,7 +170,7 @@ LAND USE AND GOVERNMENT CONTROLS:
 - Radon: naturally occurring radioactive gas. Tested with inexpensive kits.
 - Ad valorem tax: based on assessed value. Assessed Value times Tax Rate = Annual Tax. 1 mill = $1 per $1,000.
 - Special assessment: charged to properties that directly benefit from a specific public improvement.
- 
+
 LEASES AND PROPERTY MANAGEMENT:
 - Gross lease: tenant pays fixed rent; landlord pays all operating expenses.
 - Net lease: tenant pays base rent plus expenses. NNN = taxes, insurance, and maintenance.
@@ -186,7 +186,7 @@ LEASES AND PROPERTY MANAGEMENT:
 - Security deposit: held in escrow; returned within statutory period minus lawful deductions.
 - Lease assignment: tenant transfers all remaining lease rights. Original tenant may remain liable.
 - Sublease: tenant transfers some but not all lease rights. Original tenant remains liable to landlord.
- 
+
 LICENSE LAW:
 - Broker: can operate independently, hold client funds, supervise salespersons.
 - Salesperson: must work under a licensed broker. Cannot operate independently.
@@ -200,7 +200,7 @@ LICENSE LAW:
 - Secret profit: agent receives undisclosed compensation. Violates loyalty and disclosure duties.
 - Subagency: cooperating broker acts as seller's agent even when working with buyer.
 - Designated agency: one agent represents seller, different agent represents buyer within same firm.
- 
+
 MATH FORMULAS AND KEY NUMBERS:
 - Commission = Sale Price times Commission Rate
 - LTV = Loan Amount divided by Appraised Value
@@ -236,7 +236,7 @@ MANDATED DISCLOSURES:
 - Zoning and Planning Disclosures: if the agent knows a property is in a flood zone, flight path, or subject to a special assessment, this must be disclosed even if the buyer does not ask.
 - As-Is Sale: selling a property "as-is" does not eliminate the duty to disclose known material defects. It only means the seller will not make repairs. Buyers retain the right to inspect.
 - Warranty Types: (1) Express warranty — a specific written or verbal promise about the property; (2) Implied warranty — automatically assumed, such as new construction being habitable; (3) Home warranty — a service contract covering repair or replacement of major systems and appliances.
- 
+
 TRANSFER OF TITLE — EXPANDED:
 - Title Insurance: a policy protecting against losses from defects in the title that existed before the policy was issued. Two types: (1) Owner's policy — protects the buyer; (2) Lender's (mortgagee's) policy — protects the lender. Only the lender's policy is typically required; the owner's policy is optional but strongly recommended.
 - Title Search: a review of public records to trace the chain of ownership and identify any claims, liens, or encumbrances on a property. Conducted before closing.
@@ -263,7 +263,7 @@ TRANSFER OF TITLE — EXPANDED:
 - Proration at Closing: dividing periodic expenses (property taxes, HOA dues, rent, insurance) between buyer and seller based on the closing date. The party who owes the amount pays their proportional share.
 - Transfer Tax (Conveyance Tax): a tax imposed by state or local governments on the transfer of real property. Sometimes called revenue stamps or deed stamps. The rate and who pays varies by location.
 - Tax-Free Exchange (1031 Exchange): allows an investor to defer capital gains taxes by reinvesting proceeds from a sold investment property into a like-kind replacement property. Must identify replacement within 45 days, close within 180 days. Primary residences do not qualify.
- 
+
 ANTITRUST LAWS IN REAL ESTATE:
 - Sherman Antitrust Act: federal law prohibiting agreements that restrain trade or create monopolies. Real estate practitioners must avoid any agreements with competitors that limit competition.
 - Price Fixing: an illegal agreement between competing brokers to set commission rates at a fixed level. Each brokerage must independently set its own fees. Never discuss commission rates with competing brokers.
@@ -272,7 +272,7 @@ ANTITRUST LAWS IN REAL ESTATE:
 - Tie-In Arrangement: requiring a buyer to purchase one product or service as a condition of purchasing another. Example: requiring a buyer to use a specific title company as a condition of the sale.
 - Per Se Violations: certain antitrust violations are automatically illegal regardless of their effect — price fixing, market allocation, and group boycotts are per se violations.
 - Safe Practices: agents should never discuss commission rates with agents from competing firms, never agree to avoid certain neighborhoods or clients, and always set fees through their own broker independently.
- 
+
 ENVIRONMENTAL HAZARDS — EXPANDED:
 - Lead-Based Paint: used in homes built before 1978. Hazardous when it deteriorates or is disturbed (chipping, sanding). Federal law requires disclosure and a 10-day inspection period for pre-1978 homes.
 - Asbestos: a fibrous mineral used in insulation, floor tiles, and roofing before the 1980s. Dangerous when disturbed (friable). Non-friable asbestos that is in good condition is often left in place. Removal must be done by a licensed abatement contractor.
@@ -285,7 +285,7 @@ ENVIRONMENTAL HAZARDS — EXPANDED:
 - Brownfield: a previously developed property potentially contaminated by industrial or commercial use. May be eligible for cleanup grants.
 - Superfund (CERCLA): federal law that imposes liability for cleanup of contaminated sites on current and former owners, operators, and those who disposed of hazardous substances — even if they did not cause the contamination. Ignorance is not a defense.
 - Phase I Environmental Assessment: a review of historical records and site inspection to identify potential contamination. No soil or groundwater testing. Required by lenders before many commercial loans.
- 
+
 PROPERTY MANAGEMENT AND LANDLORD/TENANT:
 - Property Manager: a person or firm hired by a property owner to oversee the day-to-day operations of a rental property. Acts as an agent of the owner. Duties include leasing, rent collection, maintenance, and tenant relations.
 - Management Agreement: the contract between the property owner and property manager defining the scope of services, fees, and authority of the manager.
@@ -303,7 +303,7 @@ PROPERTY MANAGEMENT AND LANDLORD/TENANT:
 - Capitalization Rate (Cap Rate): Net Operating Income divided by Property Value. Used to evaluate income-producing properties. A higher cap rate suggests higher return but also higher risk.
 - Net Operating Income (NOI): Effective Gross Income minus Operating Expenses. Does NOT include mortgage payments (debt service).
 - Gross Rent Multiplier (GRM): Sales Price divided by Gross Monthly Rent. A quick way to compare rental properties. Lower GRM = better value relative to rent.
- 
+
 MORTGAGE FRAUD AND PREDATORY LENDING:
 - Mortgage Fraud: any intentional misrepresentation, misstatement, or omission on a mortgage application or related documents. Two main types: (1) Fraud for housing — borrower inflates income or assets to qualify; (2) Fraud for profit — industry insiders scheme to extract money from lenders.
 - Straw Buyer: a person who applies for a mortgage on behalf of someone else who could not qualify. The actual buyer stays hidden. This is mortgage fraud.
@@ -316,7 +316,7 @@ MORTGAGE FRAUD AND PREDATORY LENDING:
 - Balloon Payment Risks: some predatory loans feature low initial payments followed by a large balloon payment the borrower cannot afford. Agents should make sure buyers understand the full loan terms.
 - Usury: charging an interest rate above the legal maximum set by state law. Illegal.
 - Agent Responsibilities: agents should encourage clients to work with reputable lenders, review loan documents carefully, and report any suspicious loan activity. Participating in a fraudulent transaction — even unknowingly — can result in license suspension.
- 
+
 TECHNOLOGY IN REAL ESTATE:
 - Electronic Signatures: legally binding in real estate transactions under the Electronic Signatures in Global and National Commerce Act (E-SIGN Act) and the Uniform Electronic Transactions Act (UETA). Both parties must consent to using electronic signatures.
 - MLS (Multiple Listing Service): a database used by member brokers to share property listings and offer compensation to cooperating brokers. MLS rules govern how listings must be entered, updated, and displayed.
@@ -325,7 +325,7 @@ TECHNOLOGY IN REAL ESTATE:
 - Data Security: agents handle sensitive personal and financial information. Proper cybersecurity practices — secure passwords, encrypted email, careful document disposal — are essential to protect clients and comply with privacy laws.
 - Automated Valuation Models (AVMs): computer-generated estimates of property value using public data. Not a substitute for a licensed appraisal. Agents should educate clients on the limitations of AVMs like Zillow Zestimates.
 - Virtual Tours and Remote Transactions: technology allows buyers to view properties remotely and sign documents electronically. Agents must ensure all required disclosures are still provided and all signatures are properly obtained even in a fully remote transaction.
- 
+
 SUBDIVISIONS:
 - Subdivision: the division of a single parcel of land into two or more lots for sale or development. Requires approval from local government through a platting process.
 - Plat Map: a recorded survey showing the division of land into lots, blocks, streets, and easements. Once recorded, the plat map becomes the legal description for the individual lots.
@@ -334,7 +334,7 @@ SUBDIVISIONS:
 - HOA (Homeowners Association): an organization that manages common areas and enforces CC&Rs in a planned community, condominium, or subdivision. Members pay dues. The HOA can place a lien on a property for unpaid dues.
 - Public Offering Statement: a required disclosure document given to buyers of property in a new subdivision before purchase. Contains information about the developer, the property, any restrictions, and the financial condition of the HOA.
 - Interstate Land Sales Full Disclosure Act: federal law requiring developers selling lots in subdivisions of 100 or more lots across state lines to register with the Consumer Financial Protection Bureau (CFPB) and provide buyers with a Property Report at least 3 days before signing.
- 
+
 COMMERCIAL, INDUSTRIAL AND INCOME PROPERTY:
 - Commercial Real Estate Categories: office, retail, industrial, multifamily (5+ units), hospitality, and special purpose.
 - Office Property Classes: Class A (best quality, highest rents, newest or well-maintained), Class B (average quality, functional but not prestigious), Class C (older, lower rent, in need of renovation).
@@ -348,7 +348,7 @@ COMMERCIAL, INDUSTRIAL AND INCOME PROPERTY:
 - Cash-on-Cash Return: annual pre-tax cash flow divided by total cash invested. Measures the return on actual dollars invested, not total value.
 - Leverage: using borrowed money to increase potential return on investment. Positive leverage means the return on the property exceeds the cost of borrowing. Negative leverage means the opposite.
 `
- 
+
 const FLASHCARDS = [
 { id: 1, category: "Ownership", term: "Fee Simple Absolute", definition: "The most complete form of property ownership — full control with no conditions or time limits. The owner can sell, lease, mortgage, or leave it to heirs without any restrictions." },
 { id: 2, category: "Ownership", term: "Fee Simple Defeasible", definition: "Ownership that can automatically end if a specified condition is violated. Example: land granted 'as long as it is used as a park' — use it for anything else and ownership ends." },
@@ -501,7 +501,7 @@ const FLASHCARDS = [
 { id: 149, category: "Technology", term: "Automated Valuation Model (AVM)", definition: "A computer-generated estimate of property value using public data and algorithms. Not a substitute for a licensed appraisal. Agents should educate clients on the significant limitations of AVMs like Zillow Zestimates." },
 { id: 150, category: "Technology", term: "MLS (Multiple Listing Service)", definition: "A database used by member brokers to share property listings and offer compensation to cooperating brokers. MLS rules govern how listings must be entered, updated, displayed, and when they must be submitted after signing." },
 ]
- 
+
 const QUIZ_QUESTIONS = [
 { category: "Ownership", question: "Which ownership type gives the most complete rights with no conditions attached?", options: ["Leasehold Estate","Life Estate","Fee Simple Absolute","Joint Tenancy"], answer: 2, explanation: "Fee Simple Absolute is the highest form of ownership — complete control with no time limits or conditions. The owner can sell, lease, mortgage, or will the property freely." },
 { category: "Ownership", question: "Two co-owners hold title with right of survivorship. When one owner passes away, their share:", options: ["Passes to their heirs via their will","Moves automatically to the surviving owner","Reverts to the state","Goes through probate"], answer: 1, explanation: "Right of survivorship in Joint Tenancy means the deceased owner's interest transfers automatically to the surviving owners — completely bypassing probate." },
@@ -627,7 +627,7 @@ const QUIZ_QUESTIONS = [
 { category: "Commercial", question: "In a retail lease, the tenant pays a base rent of $2,000/month plus 5% of all gross sales over $500,000 annually. This is a:", options: ["Gross lease","Triple net lease","Percentage lease","Ground lease"], answer: 2, explanation: "A percentage lease requires the tenant to pay a base rent plus a percentage of gross sales above a specified threshold (the breakpoint). It is most commonly used in retail settings and shopping malls." },
 { category: "Technology", question: "Electronic signatures on real estate contracts are legally binding under which federal law?", options: ["RESPA","The E-SIGN Act","CERCLA","The Sherman Antitrust Act"], answer: 1, explanation: "The Electronic Signatures in Global and National Commerce Act (E-SIGN Act) establishes that electronic signatures are legally binding. Both parties must consent to using electronic signatures in the transaction." },
 ]
- 
+
 const FORMULAS = [
 { name: "Commission", formula: "Sale Price x Commission Rate", example: "$300,000 x 6% = $18,000", color: "blue" },
 { name: "Loan-to-Value (LTV)", formula: "Loan Amount / Appraised Value x 100", example: "$240,000 / $300,000 x 100 = 80%", color: "emerald" },
@@ -644,7 +644,7 @@ const FORMULAS = [
 { name: "Proration (Daily Rate)", formula: "Annual Amount / 365 days", example: "$3,650 / 365 = $10/day", color: "blue" },
 { name: "Break-Even Ratio", formula: "(Expenses + Debt Service) / Gross Income", example: "($12,000 + $15,000) / $30,000 = 90%", color: "emerald" },
 ]
- 
+
 const ACHIEVEMENTS = [
 { id: "first_card", name: "First Flip!", icon: "🃏", desc: "Study your first flashcard", xp: 10 },
 { id: "cards_10", name: "Flashcard Fan", icon: "📚", desc: "Study 10 flashcards", xp: 20 },
@@ -655,10 +655,10 @@ const ACHIEVEMENTS = [
 { id: "streak_3", name: "On Fire!", icon: "🔥", desc: "3-day streak", xp: 30 },
 { id: "formula_master", name: "Math Wizard", icon: "🧮", desc: "View all formulas", xp: 20 },
 ]
- 
+
 const QUIZ_CATEGORIES = ["All", ...Array.from(new Set(QUIZ_QUESTIONS.map(q => q.category)))]
 const CARD_CATEGORIES = ["All", ...Array.from(new Set(FLASHCARDS.map(c => c.category)))]
- 
+
 export default function App() {
 const [tab, setTab] = useState("dashboard")
 const [xp, setXp] = useState(() => parseInt(localStorage.getItem("xp") || "0"))
@@ -670,7 +670,7 @@ const [isUnlocked, setIsUnlocked] = useState(() => localStorage.getItem("isUnloc
 const [cardsStudied, setCardsStudied] = useState(() => parseInt(localStorage.getItem("cardsStudied") || "0"))
 const [formulasViewed, setFormulasViewed] = useState(() => parseInt(localStorage.getItem("formulasViewed") || "0"))
 const [totalAnswered, setTotalAnswered] = useState(() => parseInt(localStorage.getItem("totalAnswered") || "0"))
- 
+
 useEffect(() => {
 localStorage.setItem("xp", xp)
 localStorage.setItem("streak", streak)
@@ -681,9 +681,9 @@ localStorage.setItem("totalAnswered", totalAnswered)
 localStorage.setItem("userName", userName)
 localStorage.setItem("isUnlocked", isUnlocked)
 }, [xp, streak, achievements, cardsStudied, formulasViewed, totalAnswered, userName, isUnlocked])
- 
+
 const addXP = (amount) => setXp(prev => prev + amount)
- 
+
 const unlockAchievement = (id) => {
 if (!achievements.includes(id)) {
 const ach = ACHIEVEMENTS.find(a => a.id === id)
@@ -694,10 +694,10 @@ setNewAchievement(ach)
 setTimeout(() => setNewAchievement(null), 3000)
 }
 }
- 
+
 const level = Math.floor(xp / 100) + 1
 const xpForLevel = xp % 100
- 
+
 const navItems = [
 { id: "dashboard", icon: <Home size={16} />, label: "Home" },
 { id: "flashcards", icon: <Zap size={16} />, label: "Flashcards" },
@@ -707,9 +707,9 @@ const navItems = [
 { id: "tutor", icon: <Bot size={16} />, label: "AI Tutor" },
 { id: "math", icon: <Calculator size={16} />, label: "Math" },
 ]
- 
+
 const CORRECT_PASSWORD = "hayyly2025"
- 
+
 const handleUnlock = (name, password) => {
 if (password === CORRECT_PASSWORD && name.trim()) {
 setUserName(name.trim())
@@ -719,23 +719,23 @@ return false
 }
 return true
 }
- 
+
 if (!isUnlocked) return <PasswordGate onUnlock={handleUnlock} />
- 
+
 return (
 <div className="app">
 <div className="notebook-bg" />
 <div className="dark-overlay" />
 <div className="orb orb-blue" />
 <div className="orb orb-emerald" />
- 
+
 {newAchievement && (
 <div className="achievement-toast">
 <span>{newAchievement.icon}</span>
 <div><strong>Achievement Unlocked!</strong><p>{newAchievement.name} +{newAchievement.xp} XP</p></div>
 </div>
 )}
- 
+
 <header className="header">
 <div className="logo">
 <div className="logo-icon">HY</div>
@@ -750,19 +750,21 @@ return (
 <div className="stat-pill emerald">🏆 Level {level}</div>
 </div>
 </header>
- 
+
 <div className="xp-bar-container">
 <div className="xp-bar" style={{ width: `${xpForLevel}%` }} />
 </div>
- 
+
 <nav className="nav">
 {navItems.map(t => (
 <button key={t.id} className={`nav-btn ${tab === t.id ? "active" : ""}`} onClick={() => setTab(t.id)}>
-{t.icon}<span>{t.label}</span>
+<span className="nav-btn-icon">{t.icon}</span>
+<span className="nav-btn-label">{t.label}</span>
+{tab === t.id && <span className="nav-active-pip" />}
 </button>
 ))}
 </nav>
- 
+
 <main className="main">
 {tab === "dashboard" && <Dashboard xp={xp} streak={streak} level={level} xpForLevel={xpForLevel} achievements={achievements} cardsStudied={cardsStudied} totalAnswered={totalAnswered} setTab={setTab} name={userName} />}
 {tab === "flashcards" && <Flashcards addXP={addXP} unlockAchievement={unlockAchievement} cardsStudied={cardsStudied} setCardsStudied={setCardsStudied} />}
@@ -775,7 +777,7 @@ return (
 </div>
 )
 }
- 
+
 function Dashboard({ xp, streak, level, xpForLevel, achievements, cardsStudied, totalAnswered, setTab, name }) {
 return (
 <div className="dashboard">
@@ -785,20 +787,20 @@ return (
 <p className="welcome-sub">You are on your way to passing that real estate exam. Keep going!</p>
 <button className="btn btn-gradient" style={{ marginTop: 16 }} onClick={() => setTab("flashcards")}>Start Studying</button>
 </div>
- 
+
 <div className="stats-grid">
 <div className="stat-card blue"><div className="stat-icon-wrap">⚡</div><div className="stat-val">{xp}</div><div className="stat-lbl">Total XP</div></div>
 <div className="stat-card emerald"><div className="stat-icon-wrap">🏆</div><div className="stat-val">{level}</div><div className="stat-lbl">Level</div></div>
 <div className="stat-card red"><div className="stat-icon-wrap">🔥</div><div className="stat-val">{streak}</div><div className="stat-lbl">Day Streak</div></div>
 <div className="stat-card blue"><div className="stat-icon-wrap">🃏</div><div className="stat-val">{cardsStudied}</div><div className="stat-lbl">Cards Studied</div></div>
 </div>
- 
+
 <div className="dark-card">
 <div className="card-header"><span className="card-title">Level Progress</span><span className="emerald-text">{xpForLevel}/100 XP</span></div>
 <div className="level-bar"><div className="level-fill" style={{ width: `${xpForLevel}%` }} /></div>
 <p className="muted-text">Level {level} to Level {level + 1}</p>
 </div>
- 
+
 <div className="dark-card">
 <div className="card-header"><span className="card-title">Content Library</span></div>
 <div className="stats-grid" style={{ marginTop: 8 }}>
@@ -808,7 +810,7 @@ return (
 <div className="stat-card"><div className="stat-val" style={{ fontSize: "1.2rem" }}>{totalAnswered}</div><div className="stat-lbl">Answered</div></div>
 </div>
 </div>
- 
+
 <div className="dark-card">
 <div className="card-title mb16">Achievements</div>
 <div className="achievements-grid">
@@ -825,16 +827,16 @@ return (
 </div>
 )
 }
- 
+
 function Flashcards({ addXP, unlockAchievement, cardsStudied, setCardsStudied }) {
 const [catFilter, setCatFilter] = useState("All")
 const [index, setIndex] = useState(0)
 const [flipped, setFlipped] = useState(false)
 const [studied, setStudied] = useState(new Set())
- 
+
 const filtered = catFilter === "All" ? FLASHCARDS : FLASHCARDS.filter(c => c.category === catFilter)
 const card = filtered[index] || filtered[0]
- 
+
 const handleFlip = () => {
 if (!flipped) {
 setFlipped(true)
@@ -849,11 +851,11 @@ if (n >= 30) unlockAchievement("cards_30")
 }
 } else setFlipped(false)
 }
- 
+
 const next = () => { setIndex((index + 1) % filtered.length); setFlipped(false) }
 const prev = () => { setIndex((index - 1 + filtered.length) % filtered.length); setFlipped(false) }
 const handleCat = (cat) => { setCatFilter(cat); setIndex(0); setFlipped(false) }
- 
+
 return (
 <div className="section">
 <div className="section-header">
@@ -887,7 +889,7 @@ return (
 </div>
 )
 }
- 
+
 function Quiz({ addXP, unlockAchievement, totalAnswered, setTotalAnswered }) {
 const [catFilter, setCatFilter] = useState("All")
 const [pool, setPool] = useState([])
@@ -896,19 +898,19 @@ const [selected, setSelected] = useState(null)
 const [score, setScore] = useState(0)
 const [done, setDone] = useState(false)
 const [started, setStarted] = useState(false)
- 
+
 const buildPool = (cat) => {
 const base = cat === "All" ? QUIZ_QUESTIONS : QUIZ_QUESTIONS.filter(q => q.category === cat)
 return [...base].sort(() => Math.random() - 0.5)
 }
- 
+
 const startQuiz = () => {
 setPool(buildPool(catFilter))
 setQIndex(0); setSelected(null); setScore(0); setDone(false); setStarted(true)
 }
- 
+
 const q = pool[qIndex]
- 
+
 const handleAnswer = (i) => {
 if (selected !== null) return
 setSelected(i)
@@ -917,7 +919,7 @@ const next = totalAnswered + 1
 setTotalAnswered(next)
 if (next >= 50) unlockAchievement("quiz_50")
 }
- 
+
 const handleNext = () => {
 if (qIndex + 1 >= pool.length) {
 setDone(true)
@@ -927,7 +929,7 @@ if (score + (selected === q.answer ? 1 : 0) === pool.length) unlockAchievement("
 setQIndex(qIndex + 1); setSelected(null)
 }
 }
- 
+
 if (!started) return (
 <div className="section center-section">
 <h2 className="gradient-text">Practice Exam</h2>
@@ -943,12 +945,12 @@ if (!started) return (
 <button className="btn btn-gradient btn-big" onClick={startQuiz}>Start Quiz</button>
 </div>
 )
- 
+
 if (done) {
 const pct = Math.round((score / pool.length) * 100)
 return (
 <div className="section center-section">
-<div className="score-ring"><div className="score-pct">{pct}%</div><div className="score-lbl">Score</div></div>
+<div className="score-ring" style={{ position:"relative" }}><div className="score-pct">{pct}%</div><div className="score-lbl">Score</div></div>
 <h2 className="gradient-text">{pct >= 80 ? "Outstanding!" : pct >= 60 ? "Nice Work!" : "Keep Studying!"}</h2>
 <p className="muted-text">{score}/{pool.length} correct • {score * 10} XP earned</p>
 <div style={{ display: "flex", gap: 10 }}>
@@ -958,7 +960,7 @@ return (
 </div>
 )
 }
- 
+
 return (
 <div className="section">
 <div className="quiz-header-row">
@@ -970,14 +972,20 @@ return (
 <h3 className="question-text">{q.question}</h3>
 <div className="options">
 {q.options.map((opt, i) => (
-<button key={i} className={"option " + (selected !== null ? (i === q.answer ? "correct" : i === selected ? "wrong" : "") : "")} onClick={() => handleAnswer(i)}>
-<span className="option-letter">{["A","B","C","D"][i]}</span>{opt}
+<button key={i} className={"option " + (selected !== null ? (i === q.answer ? "correct" : i === selected ? "wrong" : "") : "")} onClick={() => handleAnswer(i)} disabled={selected !== null}>
+<span className="option-letter">{["A","B","C","D"][i]}</span>
+<span style={{ flex:1 }}>{opt}</span>
+{selected !== null && i === q.answer && <CheckCircle2 size={17} className="option-state-icon correct-icon" />}
+{selected !== null && i === selected && i !== q.answer && <XCircle size={17} className="option-state-icon wrong-icon" />}
 </button>
 ))}
 </div>
 {selected !== null && (
 <div className={"explanation " + (selected === q.answer ? "correct-exp" : "wrong-exp")}>
-<strong>{selected === q.answer ? "Correct!" : "Not quite!"}</strong>
+<div className={"exp-header " + (selected === q.answer ? "correct-header" : "wrong-header")}>
+{selected === q.answer ? <CheckCheck size={14} /> : <XCircle size={14} />}
+{selected === q.answer ? "Correct!" : "Not quite — here's why:"}
+</div>
 <p>{q.explanation}</p>
 </div>
 )}
@@ -990,7 +998,7 @@ return (
 </div>
 )
 }
- 
+
 function Formulas({ unlockAchievement, formulasViewed, setFormulasViewed }) {
 const [viewed, setViewed] = useState(new Set())
 const handleView = (i) => {
@@ -1014,7 +1022,7 @@ return (
 </div>
 )
 }
- 
+
 function FormulaCard({ formula, onView }) {
 const [open, setOpen] = useState(false)
 return (
@@ -1024,17 +1032,17 @@ return (
 </div>
 )
 }
- 
+
 function KeyTerms() {
 const [search, setSearch] = useState("")
 const [catFilter, setCatFilter] = useState("All")
- 
+
 const filtered = FLASHCARDS.filter(c => {
 const matchCat = catFilter === "All" || c.category === catFilter
 const matchText = c.term.toLowerCase().includes(search.toLowerCase()) || c.definition.toLowerCase().includes(search.toLowerCase())
 return matchCat && matchText
 })
- 
+
 return (
 <div className="section">
 <div className="section-header">
@@ -1062,7 +1070,7 @@ return (
 </div>
 )
 }
- 
+
 function AITutor() {
 const messagesEndRef = useRef(null)
 const [messages, setMessages] = useState([
@@ -1070,12 +1078,12 @@ const [messages, setMessages] = useState([
 ])
 const [input, setInput] = useState("")
 const [loading, setLoading] = useState(false)
- 
- 
+
+
 useEffect(() => { messagesEndRef.current?.scrollIntoView({ behavior: "smooth" }) }, [messages, loading])
- 
- 
- 
+
+
+
 const QUICK_PROMPTS = [
 "What are the 7 Fair Housing protected classes?",
 "Explain Joint Tenancy vs Tenancy in Common",
@@ -1084,16 +1092,16 @@ const QUICK_PROMPTS = [
 "Explain the 3 approaches to appraisal",
 "What is blockbusting vs steering?",
 ]
- 
+
 const send = async (overrideText) => {
 const msg = overrideText || input.trim()
 if (!msg || loading) return
 setInput("")
 setMessages(p => [...p, { role: "user", text: msg }])
 setLoading(true)
- 
+
 const groundedPrompt = "You are a real estate exam prep tutor. You must ONLY answer using the knowledge base provided below. Do not use any outside knowledge. If a question is not covered, say: That topic is not in my knowledge base — try asking about a related topic.\n\nBe concise, clear, and exam-focused. Use bullet points for lists. Mention memory tricks when helpful.\n\nKNOWLEDGE BASE:\n" + KNOWLEDGE_BASE + "\n\nStudent question: " + msg
- 
+
 try {
 const res = await fetch("/api/tutor", {
 method: "POST",
@@ -1108,12 +1116,12 @@ setMessages(p => [...p, { role: "assistant", text: "Connection error. Please try
 }
 setLoading(false)
 }
- 
+
 return (
 <div className="section tutor-section">
 <div className="tutor-header-row">
 <h2 className="gradient-text">AI Tutor</h2>
- 
+
 </div>
 <div className="quick-prompts">
 {QUICK_PROMPTS.map((p, i) => (
@@ -1142,190 +1150,190 @@ onKeyDown={e => e.key === "Enter" && send()}
 </div>
 )
 }
- 
+
 const MATH_PROBLEMS = [
 {
-  id: 1, topic: "Commission",
-  problem: "A home sells for $320,000. The total commission rate is 6%, split equally between the listing and buyer's broker. How much does the listing broker earn?",
-  formula: "Commission = Sale Price × Rate. Then split in half.",
-  steps: ["Total commission: $320,000 × 0.06 = $19,200", "Split equally: $19,200 ÷ 2 = $9,600", "Listing broker earns $9,600"],
-  answer: "$9,600",
-  options: ["$19,200", "$9,600", "$8,000", "$12,000"],
-  correct: 1
+id: 1, topic: "Commission",
+problem: "A home sells for $320,000. The total commission rate is 6%, split equally between the listing and buyer's broker. How much does the listing broker earn?",
+formula: "Commission = Sale Price × Rate. Then split in half.",
+steps: ["Total commission: $320,000 × 0.06 = $19,200", "Split equally: $19,200 ÷ 2 = $9,600", "Listing broker earns $9,600"],
+answer: "$9,600",
+options: ["$19,200", "$9,600", "$8,000", "$12,000"],
+correct: 1
 },
 {
-  id: 2, topic: "Commission Split",
-  problem: "A listing broker earns a $12,000 commission and pays 40% to the buyer's broker. How much does the listing broker keep?",
-  formula: "Listing broker keeps = Total Commission × (1 - Cooperating %)",
-  steps: ["Buyer's broker gets: $12,000 × 0.40 = $4,800", "Listing broker keeps: $12,000 - $4,800 = $7,200", "Or: $12,000 × 0.60 = $7,200"],
-  answer: "$7,200",
-  options: ["$4,800", "$6,000", "$7,200", "$8,400"],
-  correct: 2
+id: 2, topic: "Commission Split",
+problem: "A listing broker earns a $12,000 commission and pays 40% to the buyer's broker. How much does the listing broker keep?",
+formula: "Listing broker keeps = Total Commission × (1 - Cooperating %)",
+steps: ["Buyer's broker gets: $12,000 × 0.40 = $4,800", "Listing broker keeps: $12,000 - $4,800 = $7,200", "Or: $12,000 × 0.60 = $7,200"],
+answer: "$7,200",
+options: ["$4,800", "$6,000", "$7,200", "$8,400"],
+correct: 2
 },
 {
-  id: 3, topic: "Loan-to-Value (LTV)",
-  problem: "A buyer purchases a home for $275,000 and makes a 20% down payment. What is the loan-to-value ratio?",
-  formula: "LTV = Loan Amount ÷ Appraised Value × 100",
-  steps: ["Down payment: $275,000 × 0.20 = $55,000", "Loan amount: $275,000 - $55,000 = $220,000", "LTV: $220,000 ÷ $275,000 × 100 = 80%"],
-  answer: "80%",
-  options: ["20%", "75%", "80%", "85%"],
-  correct: 2
+id: 3, topic: "Loan-to-Value (LTV)",
+problem: "A buyer purchases a home for $275,000 and makes a 20% down payment. What is the loan-to-value ratio?",
+formula: "LTV = Loan Amount ÷ Appraised Value × 100",
+steps: ["Down payment: $275,000 × 0.20 = $55,000", "Loan amount: $275,000 - $55,000 = $220,000", "LTV: $220,000 ÷ $275,000 × 100 = 80%"],
+answer: "80%",
+options: ["20%", "75%", "80%", "85%"],
+correct: 2
 },
 {
-  id: 4, topic: "Down Payment",
-  problem: "A buyer is purchasing a $350,000 home with an FHA loan requiring a minimum 3.5% down payment. How much is the minimum down payment?",
-  formula: "Down Payment = Purchase Price × Down Payment %",
-  steps: ["Down payment: $350,000 × 0.035 = $12,250", "FHA minimum down = 3.5% for qualifying borrowers"],
-  answer: "$12,250",
-  options: ["$10,500", "$12,250", "$17,500", "$24,500"],
-  correct: 1
+id: 4, topic: "Down Payment",
+problem: "A buyer is purchasing a $350,000 home with an FHA loan requiring a minimum 3.5% down payment. How much is the minimum down payment?",
+formula: "Down Payment = Purchase Price × Down Payment %",
+steps: ["Down payment: $350,000 × 0.035 = $12,250", "FHA minimum down = 3.5% for qualifying borrowers"],
+answer: "$12,250",
+options: ["$10,500", "$12,250", "$17,500", "$24,500"],
+correct: 1
 },
 {
-  id: 5, topic: "Monthly Interest",
-  problem: "A borrower has a $200,000 loan at 6% annual interest. What is the interest portion of the first monthly payment?",
-  formula: "Monthly Interest = Loan Balance × (Annual Rate ÷ 12)",
-  steps: ["Annual interest: $200,000 × 0.06 = $12,000", "Monthly interest: $12,000 ÷ 12 = $1,000"],
-  answer: "$1,000",
-  options: ["$1,200", "$1,000", "$833", "$600"],
-  correct: 1
+id: 5, topic: "Monthly Interest",
+problem: "A borrower has a $200,000 loan at 6% annual interest. What is the interest portion of the first monthly payment?",
+formula: "Monthly Interest = Loan Balance × (Annual Rate ÷ 12)",
+steps: ["Annual interest: $200,000 × 0.06 = $12,000", "Monthly interest: $12,000 ÷ 12 = $1,000"],
+answer: "$1,000",
+options: ["$1,200", "$1,000", "$833", "$600"],
+correct: 1
 },
 {
-  id: 6, topic: "Discount Points",
-  problem: "A buyer takes out a $180,000 mortgage. The lender charges 2 discount points. How much will the buyer pay in points?",
-  formula: "1 point = 1% of the loan amount",
-  steps: ["1 point = $180,000 × 0.01 = $1,800", "2 points = $1,800 × 2 = $3,600"],
-  answer: "$3,600",
-  options: ["$1,800", "$2,400", "$3,600", "$5,400"],
-  correct: 2
+id: 6, topic: "Discount Points",
+problem: "A buyer takes out a $180,000 mortgage. The lender charges 2 discount points. How much will the buyer pay in points?",
+formula: "1 point = 1% of the loan amount",
+steps: ["1 point = $180,000 × 0.01 = $1,800", "2 points = $1,800 × 2 = $3,600"],
+answer: "$3,600",
+options: ["$1,800", "$2,400", "$3,600", "$5,400"],
+correct: 2
 },
 {
-  id: 7, topic: "Capitalization Rate",
-  problem: "A commercial property has a Net Operating Income of $45,000 and is listed for $600,000. What is the cap rate?",
-  formula: "Cap Rate = NOI ÷ Property Value × 100",
-  steps: ["Cap Rate = $45,000 ÷ $600,000 = 0.075", "Cap Rate = 7.5%"],
-  answer: "7.5%",
-  options: ["6%", "7.5%", "8%", "9%"],
-  correct: 1
+id: 7, topic: "Capitalization Rate",
+problem: "A commercial property has a Net Operating Income of $45,000 and is listed for $600,000. What is the cap rate?",
+formula: "Cap Rate = NOI ÷ Property Value × 100",
+steps: ["Cap Rate = $45,000 ÷ $600,000 = 0.075", "Cap Rate = 7.5%"],
+answer: "7.5%",
+options: ["6%", "7.5%", "8%", "9%"],
+correct: 1
 },
 {
-  id: 8, topic: "Property Value from Cap Rate",
-  problem: "A property generates an NOI of $36,000. Comparable properties in the area sell at a 6% cap rate. What is the estimated property value?",
-  formula: "Value = NOI ÷ Cap Rate",
-  steps: ["Value = $36,000 ÷ 0.06 = $600,000"],
-  answer: "$600,000",
-  options: ["$360,000", "$480,000", "$600,000", "$720,000"],
-  correct: 2
+id: 8, topic: "Property Value from Cap Rate",
+problem: "A property generates an NOI of $36,000. Comparable properties in the area sell at a 6% cap rate. What is the estimated property value?",
+formula: "Value = NOI ÷ Cap Rate",
+steps: ["Value = $36,000 ÷ 0.06 = $600,000"],
+answer: "$600,000",
+options: ["$360,000", "$480,000", "$600,000", "$720,000"],
+correct: 2
 },
 {
-  id: 9, topic: "Gross Rent Multiplier",
-  problem: "A rental property sells for $240,000 and generates $2,000/month in gross rent. What is the GRM?",
-  formula: "GRM = Sales Price ÷ Gross Monthly Rent",
-  steps: ["GRM = $240,000 ÷ $2,000 = 120"],
-  answer: "120",
-  options: ["60", "100", "120", "150"],
-  correct: 2
+id: 9, topic: "Gross Rent Multiplier",
+problem: "A rental property sells for $240,000 and generates $2,000/month in gross rent. What is the GRM?",
+formula: "GRM = Sales Price ÷ Gross Monthly Rent",
+steps: ["GRM = $240,000 ÷ $2,000 = 120"],
+answer: "120",
+options: ["60", "100", "120", "150"],
+correct: 2
 },
 {
-  id: 10, topic: "Proration — Property Taxes",
-  problem: "Annual property taxes are $3,650. The closing date is March 31. The seller owes taxes for January 1 through March 31. How much does the seller owe at closing?",
-  formula: "Daily rate = Annual Amount ÷ 365. Seller's share = Daily Rate × Days Owned",
-  steps: ["Daily rate: $3,650 ÷ 365 = $10/day", "Days Jan 1 – Mar 31 = 90 days", "Seller owes: $10 × 90 = $900"],
-  answer: "$900",
-  options: ["$300", "$600", "$900", "$1,200"],
-  correct: 2
+id: 10, topic: "Proration — Property Taxes",
+problem: "Annual property taxes are $3,650. The closing date is March 31. The seller owes taxes for January 1 through March 31. How much does the seller owe at closing?",
+formula: "Daily rate = Annual Amount ÷ 365. Seller's share = Daily Rate × Days Owned",
+steps: ["Daily rate: $3,650 ÷ 365 = $10/day", "Days Jan 1 – Mar 31 = 90 days", "Seller owes: $10 × 90 = $900"],
+answer: "$900",
+options: ["$300", "$600", "$900", "$1,200"],
+correct: 2
 },
 {
-  id: 11, topic: "Proration — Prepaid Rent",
-  problem: "A tenant pays $1,200/month rent on the 1st. The closing is on the 10th. The buyer is entitled to the remaining rent for the month (21 days remaining in a 30-day month). How much rent does the seller credit the buyer?",
-  formula: "Daily Rent = Monthly Rent ÷ Days in Month. Credit = Daily Rate × Remaining Days",
-  steps: ["Daily rent: $1,200 ÷ 30 = $40/day", "Remaining days: 21", "Buyer credit: $40 × 21 = $840"],
-  answer: "$840",
-  options: ["$400", "$600", "$840", "$1,200"],
-  correct: 2
+id: 11, topic: "Proration — Prepaid Rent",
+problem: "A tenant pays $1,200/month rent on the 1st. The closing is on the 10th. The buyer is entitled to the remaining rent for the month (21 days remaining in a 30-day month). How much rent does the seller credit the buyer?",
+formula: "Daily Rent = Monthly Rent ÷ Days in Month. Credit = Daily Rate × Remaining Days",
+steps: ["Daily rent: $1,200 ÷ 30 = $40/day", "Remaining days: 21", "Buyer credit: $40 × 21 = $840"],
+answer: "$840",
+options: ["$400", "$600", "$840", "$1,200"],
+correct: 2
 },
 {
-  id: 12, topic: "Transfer Tax",
-  problem: "A state charges a transfer tax of $1.10 per $1,000 of the sales price. A home sells for $350,000. How much is the transfer tax?",
-  formula: "Transfer Tax = (Sales Price ÷ 1,000) × Tax Rate per $1,000",
-  steps: ["$350,000 ÷ $1,000 = 350 units", "350 × $1.10 = $385"],
-  answer: "$385",
-  options: ["$350", "$385", "$3,850", "$3,500"],
-  correct: 1
+id: 12, topic: "Transfer Tax",
+problem: "A state charges a transfer tax of $1.10 per $1,000 of the sales price. A home sells for $350,000. How much is the transfer tax?",
+formula: "Transfer Tax = (Sales Price ÷ 1,000) × Tax Rate per $1,000",
+steps: ["$350,000 ÷ $1,000 = 350 units", "350 × $1.10 = $385"],
+answer: "$385",
+options: ["$350", "$385", "$3,850", "$3,500"],
+correct: 1
 },
 {
-  id: 13, topic: "Seller's Net Proceeds",
-  problem: "A home sells for $400,000. The seller has an outstanding mortgage of $210,000, pays a 6% commission, and has $3,500 in closing costs. What are the seller's net proceeds?",
-  formula: "Net Proceeds = Sale Price - Mortgage - Commission - Closing Costs",
-  steps: ["Commission: $400,000 × 0.06 = $24,000", "Net = $400,000 - $210,000 - $24,000 - $3,500 = $162,500"],
-  answer: "$162,500",
-  options: ["$166,000", "$162,500", "$158,000", "$174,500"],
-  correct: 1
+id: 13, topic: "Seller's Net Proceeds",
+problem: "A home sells for $400,000. The seller has an outstanding mortgage of $210,000, pays a 6% commission, and has $3,500 in closing costs. What are the seller's net proceeds?",
+formula: "Net Proceeds = Sale Price - Mortgage - Commission - Closing Costs",
+steps: ["Commission: $400,000 × 0.06 = $24,000", "Net = $400,000 - $210,000 - $24,000 - $3,500 = $162,500"],
+answer: "$162,500",
+options: ["$166,000", "$162,500", "$158,000", "$174,500"],
+correct: 1
 },
 {
-  id: 14, topic: "Area Calculation",
-  problem: "A rectangular lot is 120 feet wide and 200 feet deep. What is the lot size in acres? (1 acre = 43,560 sq ft)",
-  formula: "Area = Length × Width. Acres = Square Feet ÷ 43,560",
-  steps: ["Area: 120 × 200 = 24,000 sq ft", "Acres: 24,000 ÷ 43,560 = 0.55 acres"],
-  answer: "0.55 acres",
-  options: ["0.45 acres", "0.55 acres", "0.65 acres", "1.1 acres"],
-  correct: 1
+id: 14, topic: "Area Calculation",
+problem: "A rectangular lot is 120 feet wide and 200 feet deep. What is the lot size in acres? (1 acre = 43,560 sq ft)",
+formula: "Area = Length × Width. Acres = Square Feet ÷ 43,560",
+steps: ["Area: 120 × 200 = 24,000 sq ft", "Acres: 24,000 ÷ 43,560 = 0.55 acres"],
+answer: "0.55 acres",
+options: ["0.45 acres", "0.55 acres", "0.65 acres", "1.1 acres"],
+correct: 1
 },
 {
-  id: 15, topic: "Depreciation — Residential",
-  problem: "A residential rental property has a building value of $275,000 (land is excluded). What is the annual straight-line depreciation for tax purposes?",
-  formula: "Annual Depreciation = Building Value ÷ 27.5 years",
-  steps: ["$275,000 ÷ 27.5 = $10,000 per year"],
-  answer: "$10,000/year",
-  options: ["$7,051", "$10,000", "$14,474", "$12,500"],
-  correct: 1
+id: 15, topic: "Depreciation — Residential",
+problem: "A residential rental property has a building value of $275,000 (land is excluded). What is the annual straight-line depreciation for tax purposes?",
+formula: "Annual Depreciation = Building Value ÷ 27.5 years",
+steps: ["$275,000 ÷ 27.5 = $10,000 per year"],
+answer: "$10,000/year",
+options: ["$7,051", "$10,000", "$14,474", "$12,500"],
+correct: 1
 },
 {
-  id: 16, topic: "Depreciation — Commercial",
-  problem: "A commercial building has a value of $390,000. What is the annual straight-line depreciation?",
-  formula: "Annual Depreciation = Building Value ÷ 39 years",
-  steps: ["$390,000 ÷ 39 = $10,000 per year"],
-  answer: "$10,000/year",
-  options: ["$10,000", "$14,181", "$7,500", "$12,000"],
-  correct: 0
+id: 16, topic: "Depreciation — Commercial",
+problem: "A commercial building has a value of $390,000. What is the annual straight-line depreciation?",
+formula: "Annual Depreciation = Building Value ÷ 39 years",
+steps: ["$390,000 ÷ 39 = $10,000 per year"],
+answer: "$10,000/year",
+options: ["$10,000", "$14,181", "$7,500", "$12,000"],
+correct: 0
 },
 {
-  id: 17, topic: "Qualifying Buyer — DTI",
-  problem: "A buyer earns $6,000/month gross income. The lender allows a maximum 28% front-end debt-to-income ratio for housing costs. What is the maximum monthly housing payment?",
-  formula: "Max Payment = Gross Monthly Income × Front-End DTI %",
-  steps: ["$6,000 × 0.28 = $1,680/month maximum housing payment"],
-  answer: "$1,680",
-  options: ["$1,200", "$1,500", "$1,680", "$1,800"],
-  correct: 2
+id: 17, topic: "Qualifying Buyer — DTI",
+problem: "A buyer earns $6,000/month gross income. The lender allows a maximum 28% front-end debt-to-income ratio for housing costs. What is the maximum monthly housing payment?",
+formula: "Max Payment = Gross Monthly Income × Front-End DTI %",
+steps: ["$6,000 × 0.28 = $1,680/month maximum housing payment"],
+answer: "$1,680",
+options: ["$1,200", "$1,500", "$1,680", "$1,800"],
+correct: 2
 },
 {
-  id: 18, topic: "Equity",
-  problem: "A homeowner's property is worth $425,000. They have an outstanding mortgage balance of $280,000. What is their equity?",
-  formula: "Equity = Market Value - Outstanding Loan Balance",
-  steps: ["Equity = $425,000 - $280,000 = $145,000"],
-  answer: "$145,000",
-  options: ["$145,000", "$165,000", "$280,000", "$425,000"],
-  correct: 0
+id: 18, topic: "Equity",
+problem: "A homeowner's property is worth $425,000. They have an outstanding mortgage balance of $280,000. What is their equity?",
+formula: "Equity = Market Value - Outstanding Loan Balance",
+steps: ["Equity = $425,000 - $280,000 = $145,000"],
+answer: "$145,000",
+options: ["$145,000", "$165,000", "$280,000", "$425,000"],
+correct: 0
 },
 {
-  id: 19, topic: "Commission — Agent Split",
-  problem: "A property sells for $500,000 at 6% total commission. The listing broker and buyer's broker split it 50/50. The listing agent receives 60% of their broker's share. How much does the listing agent earn?",
-  formula: "Work step by step: total → broker share → agent share",
-  steps: ["Total commission: $500,000 × 0.06 = $30,000", "Listing broker share: $30,000 ÷ 2 = $15,000", "Listing agent: $15,000 × 0.60 = $9,000"],
-  answer: "$9,000",
-  options: ["$18,000", "$15,000", "$9,000", "$6,000"],
-  correct: 2
+id: 19, topic: "Commission — Agent Split",
+problem: "A property sells for $500,000 at 6% total commission. The listing broker and buyer's broker split it 50/50. The listing agent receives 60% of their broker's share. How much does the listing agent earn?",
+formula: "Work step by step: total → broker share → agent share",
+steps: ["Total commission: $500,000 × 0.06 = $30,000", "Listing broker share: $30,000 ÷ 2 = $15,000", "Listing agent: $15,000 × 0.60 = $9,000"],
+answer: "$9,000",
+options: ["$18,000", "$15,000", "$9,000", "$6,000"],
+correct: 2
 },
 {
-  id: 20, topic: "NOI and Operating Expenses",
-  problem: "A 10-unit apartment building generates $180,000 in annual gross rent. Vacancy is 5% and operating expenses are $72,000. What is the NOI?",
-  formula: "EGI = PGI - Vacancy Loss. NOI = EGI - Operating Expenses",
-  steps: ["Vacancy loss: $180,000 × 0.05 = $9,000", "EGI: $180,000 - $9,000 = $171,000", "NOI: $171,000 - $72,000 = $99,000"],
-  answer: "$99,000",
-  options: ["$108,000", "$99,000", "$90,000", "$72,000"],
-  correct: 1
+id: 20, topic: "NOI and Operating Expenses",
+problem: "A 10-unit apartment building generates $180,000 in annual gross rent. Vacancy is 5% and operating expenses are $72,000. What is the NOI?",
+formula: "EGI = PGI - Vacancy Loss. NOI = EGI - Operating Expenses",
+steps: ["Vacancy loss: $180,000 × 0.05 = $9,000", "EGI: $180,000 - $9,000 = $171,000", "NOI: $171,000 - $72,000 = $99,000"],
+answer: "$99,000",
+options: ["$108,000", "$99,000", "$90,000", "$72,000"],
+correct: 1
 },
 ]
- 
+
 function MathPractice({ addXP }) {
 const [mode, setMode] = useState("menu")
 const [currentIdx, setCurrentIdx] = useState(0)
@@ -1335,12 +1343,12 @@ const [score, setScore] = useState(0)
 const [answered, setAnswered] = useState(0)
 const [topic, setTopic] = useState("All")
 const [xpEarned, setXpEarned] = useState(0)
- 
+
 const topics = ["All", ...Array.from(new Set(MATH_PROBLEMS.map(p => p.topic)))]
 const filtered = topic === "All" ? MATH_PROBLEMS : MATH_PROBLEMS.filter(p => p.topic === topic)
- 
+
 const problem = filtered[currentIdx % filtered.length]
- 
+
 const handleAnswer = (idx) => {
 if (selected !== null) return
 setSelected(idx)
@@ -1352,13 +1360,13 @@ setXpEarned(x => x + 15)
 addXP(15)
 }
 }
- 
+
 const next = () => {
 setSelected(null)
 setShowSolution(false)
 setCurrentIdx(i => i + 1)
 }
- 
+
 if (mode === "menu") return (
 <div className="section">
 <h2 className="gradient-text">Math Practice</h2>
@@ -1388,7 +1396,7 @@ if (mode === "menu") return (
 <p className="muted-text" style={{ fontSize: "0.8rem" }}>{filtered.length} problems {topic !== "All" ? `in ${topic}` : "across all topics"} · 15 XP per correct answer</p>
 </div>
 )
- 
+
 if (mode === "formulas") return (
 <div className="section">
 <button className="btn-ghost-sm" onClick={() => setMode("menu")} style={{ marginBottom: 16 }}>← Back</button>
@@ -1423,7 +1431,7 @@ if (mode === "formulas") return (
 </div>
 </div>
 )
- 
+
 return (
 <div className="section">
 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
@@ -1432,7 +1440,7 @@ return (
 {mode === "quiz" ? `Score: ${score}/${answered} · +${xpEarned} XP` : `Problem ${(currentIdx % filtered.length) + 1} of ${filtered.length}`}
 </div>
 </div>
- 
+
 <div style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 16, padding: "1.5rem", marginBottom: 16 }}>
 <div style={{ fontSize: "0.75rem", fontWeight: 700, color: "var(--color-blue)", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: 8 }}>{problem.topic}</div>
 <p style={{ fontSize: "0.95rem", lineHeight: 1.65, marginBottom: 16 }}>{problem.problem}</p>
@@ -1440,7 +1448,7 @@ return (
 <strong>Formula:</strong> {problem.formula}
 </div>
 </div>
- 
+
 <div style={{ display: "flex", flexDirection: "column", gap: 10, marginBottom: 16 }}>
 {problem.options.map((opt, i) => {
 let bg = "rgba(255,255,255,0.03)"
@@ -1451,16 +1459,19 @@ else if (i === selected && i !== problem.correct) { bg = "rgba(239,68,68,0.12)";
 }
 return (
 <button key={i} onClick={() => handleAnswer(i)} disabled={selected !== null}
-style={{ background: bg, border: `1px solid ${border}`, borderRadius: 10, padding: "0.85rem 1rem", textAlign: "left", color: "var(--color-text)", cursor: selected !== null ? "default" : "pointer", fontSize: "0.9rem", transition: "all 0.2s" }}>
-<span style={{ fontWeight: 700, marginRight: 8, color: "var(--color-muted)" }}>{["A","B","C","D"][i]}.</span>{opt}
+style={{ background: bg, border: `1px solid ${border}`, borderRadius: 10, padding: "0.85rem 1rem", textAlign: "left", color: "var(--color-text)", cursor: selected !== null ? "default" : "pointer", fontSize: "0.9rem", transition: "all 0.2s", display:"flex", alignItems:"center", gap:8 }}>
+<span style={{ fontWeight: 700, color: "var(--color-muted)", flexShrink:0 }}>{["A","B","C","D"][i]}.</span>
+<span style={{ flex:1 }}>{opt}</span>
+{selected !== null && i === problem.correct && <CheckCircle2 size={17} style={{ color:"#34d399", flexShrink:0 }} />}
+{selected !== null && i === selected && i !== problem.correct && <XCircle size={17} style={{ color:"#f87171", flexShrink:0 }} />}
 </button>
 )
 })}
 </div>
- 
+
 {showSolution && (
 <div style={{ background: "rgba(34,197,94,0.06)", border: "1px solid rgba(34,197,94,0.2)", borderRadius: 12, padding: "1rem 1.2rem", marginBottom: 16 }}>
-<div style={{ fontWeight: 700, color: "#22c55e", marginBottom: 8 }}>Step-by-Step Solution</div>
+<div style={{ fontWeight: 700, color: "#22c55e", marginBottom: 8, display:"flex", alignItems:"center", gap:6 }}><CheckCheck size={15} />Step-by-Step Solution</div>
 {problem.steps.map((s, i) => (
 <div key={i} style={{ fontSize: "0.88rem", marginBottom: 4, paddingLeft: 8 }}>
 <span style={{ color: "var(--color-blue)", fontWeight: 700, marginRight: 6 }}>{i + 1}.</span>{s}
@@ -1469,7 +1480,7 @@ style={{ background: bg, border: `1px solid ${border}`, borderRadius: 10, paddin
 <div style={{ marginTop: 10, fontWeight: 700, color: "#22c55e", fontSize: "0.9rem" }}>Answer: {problem.answer}</div>
 </div>
 )}
- 
+
 {selected !== null && (
 <button className="btn btn-gradient" onClick={next}>
 {currentIdx >= filtered.length - 1 ? "Start Over" : "Next Problem →"}
@@ -1478,13 +1489,13 @@ style={{ background: bg, border: `1px solid ${border}`, borderRadius: 10, paddin
 </div>
 )
 }
- 
+
 function PasswordGate({ onUnlock }) {
 const [name, setName] = useState("")
 const [password, setPassword] = useState("")
 const [error, setError] = useState("")
 const [loading, setLoading] = useState(false)
- 
+
 const handleSubmit = () => {
 if (!name.trim()) { setError("Please enter your first name."); return }
 if (!password.trim()) { setError("Please enter your access password."); return }
@@ -1497,7 +1508,7 @@ setLoading(false)
 }
 }, 600)
 }
- 
+
 return (
 <div style={{
 minHeight: "100vh",
@@ -1531,7 +1542,7 @@ Welcome to Hayyly
 <p style={{ color: "#a1a1aa", fontSize: "0.875rem", marginBottom: "2rem", lineHeight: 1.6 }}>
 Enter your name and the password from your confirmation email to get started.
 </p>
- 
+
 <label style={{ color: "#a1a1aa", fontSize: "0.78rem", fontWeight: 500, display: "block", marginBottom: "0.4rem", textTransform: "uppercase", letterSpacing: "0.06em" }}>First Name</label>
 <input
 style={{
@@ -1548,7 +1559,7 @@ value={name}
 onChange={e => { setName(e.target.value); setError("") }}
 onKeyDown={e => e.key === "Enter" && handleSubmit()}
 />
- 
+
 <label style={{ color: "#a1a1aa", fontSize: "0.78rem", fontWeight: 500, display: "block", marginBottom: "0.4rem", textTransform: "uppercase", letterSpacing: "0.06em" }}>Access Password</label>
 <input
 style={{
@@ -1566,9 +1577,9 @@ value={password}
 onChange={e => { setPassword(e.target.value); setError("") }}
 onKeyDown={e => e.key === "Enter" && handleSubmit()}
 />
- 
+
 {error && <p style={{ color: "#ef4444", fontSize: "0.82rem", marginBottom: "1rem" }}>{error}</p>}
- 
+
 <button
 onClick={handleSubmit}
 disabled={loading}
@@ -1585,7 +1596,7 @@ fontFamily: "inherit"
 >
 {loading ? "Checking..." : "Access Hayyly →"}
 </button>
- 
+
 <p style={{ color: "#52525b", fontSize: "0.75rem", textAlign: "center", marginTop: "1.5rem" }}>
 Paid access only · <a href="https://hayyly.vercel.app" style={{ color: "#3b82f6", textDecoration: "none" }}>Get access</a>
 </p>
