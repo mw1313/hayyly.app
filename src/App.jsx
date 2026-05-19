@@ -538,6 +538,43 @@ export default function App() {
   const handleLogout = async () => {
     await supabase.auth.signOut()
   }
+  const [profileLoaded, setProfileLoaded] = useState(false)
+
+  useEffect(() => {
+    if (!session) return
+    let cancelled = false
+
+    async function loadProfile() {
+      const { data, error } = await supabase
+        .from("profiles")
+        .select("*")
+        .eq("id", session.user.id)
+        .single()
+
+      if (cancelled) return
+
+      if (error) {
+        console.log("Profile load error:", error.message)
+        setProfileLoaded(true)
+        return
+      }
+
+      if (data) {
+        setXp(data.xp || 0)
+        setStreak(data.streak || 0)
+        setLastStudyDate(data.last_study_date || "")
+        setAchievements(data.achievements || [])
+        setCardsStudied(data.cards_studied || 0)
+        setFormulasViewed(data.formulas_viewed || 0)
+        setTotalAnswered(data.total_answered || 0)
+        setUserName(data.user_name || "")
+      }
+      setProfileLoaded(true)
+    }
+
+    loadProfile()
+    return () => { cancelled = true }
+  }, [session])
 const [tab, setTab] = useState("dashboard")
 const [xp, setXp] = useState(() => parseInt(localStorage.getItem("xp") || "0"))
 const [streak, setStreak] = useState(() => parseInt(localStorage.getItem("streak") || "0"))
@@ -583,7 +620,30 @@ localStorage.setItem("totalAnswered", totalAnswered)
 localStorage.setItem("userName", userName)
 localStorage.setItem("isUnlocked", isUnlocked)
 }, [xp, streak, lastStudyDate, achievements, cardsStudied, formulasViewed, totalAnswered, userName, isUnlocked])
- 
+ useEffect(() => {
+if (!session || !profileLoaded) return
+const timer = setTimeout(() => {
+supabase
+.from("profiles")
+.update({
+xp,
+streak,
+last_study_date: lastStudyDate,
+achievements,
+cards_studied: cardsStudied,
+formulas_viewed: formulasViewed,
+total_answered: totalAnswered,
+user_name: userName
+})
+.eq("id", session.user.id)
+.then(({ error }) => {
+if (error) console.log("Profile save error:", error.message)
+})
+}, 800)
+return () => clearTimeout(timer)
+}, [xp, streak, lastStudyDate, achievements, cardsStudied, formulasViewed, totalAnswered, userName, session, profileLoaded])
+
+
 const addXP = (amount) => setXp(prev => prev + amount)
  
 const unlockAchievement = (id) => {
