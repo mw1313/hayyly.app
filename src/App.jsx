@@ -1,6 +1,3 @@
-App · JSX
-Copy
-
 import { useState, useEffect, useRef } from "react"
 import { Zap, Target, Home, Calculator, List, Bot, CheckCircle2, XCircle, CheckCheck, Brain } from "lucide-react"
 import "./App.css"
@@ -1508,4 +1505,3 @@ Paid access only · <a href="https://hayyly.vercel.app" style={{ color: "#3b82f6
 </div>
 )
 }
- 
