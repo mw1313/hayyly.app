@@ -1,3 +1,6 @@
+App · JSX
+Copy
+
 import { useState, useEffect, useRef } from "react"
 import { Zap, Target, Home, Calculator, List, Bot, CheckCircle2, XCircle, CheckCheck, Brain } from "lucide-react"
 import "./App.css"
@@ -534,6 +537,7 @@ export default function App() {
 const [tab, setTab] = useState("dashboard")
 const [xp, setXp] = useState(() => parseInt(localStorage.getItem("xp") || "0"))
 const [streak, setStreak] = useState(() => parseInt(localStorage.getItem("streak") || "0"))
+const [lastStudyDate, setLastStudyDate] = useState(() => localStorage.getItem("lastStudyDate") || "")
 const [achievements, setAchievements] = useState(() => JSON.parse(localStorage.getItem("achievements") || "[]"))
 const [newAchievement, setNewAchievement] = useState(null)
 const [userName, setUserName] = useState(() => localStorage.getItem("userName") || "")
@@ -542,16 +546,39 @@ const [cardsStudied, setCardsStudied] = useState(() => parseInt(localStorage.get
 const [formulasViewed, setFormulasViewed] = useState(() => parseInt(localStorage.getItem("formulasViewed") || "0"))
 const [totalAnswered, setTotalAnswered] = useState(() => parseInt(localStorage.getItem("totalAnswered") || "0"))
  
+// ── STREAK LOGIC ──
+// Runs once when the app loads. Compares today's date to the last recorded
+// study date and updates the streak accordingly:
+//   - same day  -> no change (already counted today)
+//   - yesterday -> streak + 1 (consecutive day)
+//   - older/new -> streak resets to 1
+useEffect(() => {
+const today = new Date().toDateString()
+if (lastStudyDate === today) return
+ 
+const yesterday = new Date()
+yesterday.setDate(yesterday.getDate() - 1)
+ 
+if (lastStudyDate === yesterday.toDateString()) {
+setStreak(prev => prev + 1)
+} else {
+setStreak(1)
+}
+setLastStudyDate(today)
+// eslint-disable-next-line react-hooks/exhaustive-deps
+}, [])
+ 
 useEffect(() => {
 localStorage.setItem("xp", xp)
 localStorage.setItem("streak", streak)
+localStorage.setItem("lastStudyDate", lastStudyDate)
 localStorage.setItem("achievements", JSON.stringify(achievements))
 localStorage.setItem("cardsStudied", cardsStudied)
 localStorage.setItem("formulasViewed", formulasViewed)
 localStorage.setItem("totalAnswered", totalAnswered)
 localStorage.setItem("userName", userName)
 localStorage.setItem("isUnlocked", isUnlocked)
-}, [xp, streak, achievements, cardsStudied, formulasViewed, totalAnswered, userName, isUnlocked])
+}, [xp, streak, lastStudyDate, achievements, cardsStudied, formulasViewed, totalAnswered, userName, isUnlocked])
  
 const addXP = (amount) => setXp(prev => prev + amount)
  
@@ -565,6 +592,12 @@ setNewAchievement(ach)
 setTimeout(() => setNewAchievement(null), 3000)
 }
 }
+ 
+// Unlock the 3-day streak achievement whenever the streak reaches 3+
+useEffect(() => {
+if (streak >= 3) unlockAchievement("streak_3")
+// eslint-disable-next-line react-hooks/exhaustive-deps
+}, [streak])
  
 const level = Math.floor(xp / 100) + 1
 const xpForLevel = xp % 100
@@ -795,9 +828,12 @@ if (next >= 50) unlockAchievement("quiz_50")
  
 const handleNext = () => {
 if (qIndex + 1 >= pool.length) {
+// compute the final score in a local variable so we do not rely on
+// the (possibly stale) score state inside this handler
+const finalScore = score + (selected === q.answer ? 1 : 0)
 setDone(true)
 unlockAchievement("quiz_start")
-if (score + (selected === q.answer ? 1 : 0) === pool.length) unlockAchievement("perfect_quiz")
+if (finalScore === pool.length) unlockAchievement("perfect_quiz")
 } else {
 setQIndex(qIndex + 1); setSelected(null)
 }
@@ -1472,3 +1508,4 @@ Paid access only · <a href="https://hayyly.vercel.app" style={{ color: "#3b82f6
 </div>
 )
 }
+ 
