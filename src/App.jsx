@@ -1,7 +1,9 @@
 import { useState, useEffect, useRef } from "react"
 import { Zap, Target, Home, Calculator, List, Bot, CheckCircle2, XCircle, CheckCheck, Brain } from "lucide-react"
 import "./App.css"
-import VisualAids from "./VisualAids"
+import VisualAids from "./VisualAids" 
+import { useAuth } from "./AuthContext"
+import Login from "./Login"
  
 const KNOWLEDGE_BASE = `
 PROPERTY OWNERSHIP:
@@ -531,6 +533,7 @@ const QUIZ_CATEGORIES = ["All", ...Array.from(new Set(QUIZ_QUESTIONS.map(q => q.
 const CARD_CATEGORIES = ["All", ...Array.from(new Set(FLASHCARDS.map(c => c.category)))]
  
 export default function App() {
+  const { session, loading } = useAuth()
 const [tab, setTab] = useState("dashboard")
 const [xp, setXp] = useState(() => parseInt(localStorage.getItem("xp") || "0"))
 const [streak, setStreak] = useState(() => parseInt(localStorage.getItem("streak") || "0"))
@@ -622,7 +625,8 @@ return false
 return true
 }
  
-if (!isUnlocked) return <PasswordGate onUnlock={handleUnlock} />
+if (loading) return null
+if (!session) return <Login />
  
 return (
 <div className="app">
