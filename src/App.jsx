@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react"
-import { Zap, Target, Home, Calculator, List, Bot, Check, X } from "lucide-react"
+import { Zap, Target, Home, Calculator, List, Bot, CheckCircle2, XCircle, CheckCheck, Brain } from "lucide-react"
 import "./App.css"
+import VisualAids from "./VisualAids"
  
 const KNOWLEDGE_BASE = `
 PROPERTY OWNERSHIP:
@@ -217,136 +218,6 @@ MATH FORMULAS AND KEY NUMBERS:
 - Proration Daily Rate = Annual Amount divided by 365
 - Break-Even Ratio = (Expenses plus Debt Service) divided by Gross Income
 - KEY NUMBERS: 1 acre = 43,560 sq ft; 1 section = 640 acres; 1 township = 36 sections; residential depreciation = 27.5 years; commercial = 39 years; FHA minimum down = 3.5%; Loan Estimate = 3 business days; Closing Disclosure = 3 business days before closing; 1031 identification = 45 days; 1031 closing = 180 days; HUD complaint = 1 year; federal court Fair Housing = 2 years; EPA radon action level = 4 pCi/L; lead paint disclosure homes built before 1978; Interstate Land Sales = 100+ lots; E-SIGN and UETA govern electronic signatures.
-MANDATED DISCLOSURES:
-- Seller's Disclosure: a written statement the seller provides to the buyer detailing the known condition of the property. Sellers must disclose material facts — meaning anything that could affect the value or desirability of the property in the eyes of a reasonable buyer.
-- Material Fact: any fact a reasonable buyer would consider important when deciding whether to purchase and at what price. Agents have a duty to disclose material facts even if the seller does not.
-- Latent Defect: a hidden defect not visible during a normal inspection that the seller knows about. Must be disclosed. Example: a basement that floods seasonally but appears dry at the time of showing.
-- Patent Defect: a defect visible to the naked eye during a normal walkthrough. No special duty to disclose what any buyer can plainly see.
-- Agent's Inspection Duty: in most states, the listing agent must conduct a reasonable visual inspection of the property and disclose findings. Agents cannot simply repeat the seller's claims without reasonable verification.
-- Red Flag Rule: when something looks wrong, smells wrong, or seems inconsistent, an agent has a duty to investigate further rather than ignore it. Failing to investigate a red flag can create liability.
-- Environmental Hazards Requiring Disclosure: lead-based paint (mandatory federal disclosure for homes built before 1978), radon, asbestos, mold, underground storage tanks, formaldehyde, urea-formaldehyde foam insulation, high-voltage power lines, contaminated soil or groundwater, nearby waste disposal sites.
-- Lead-Based Paint Disclosure: federal law requires sellers of homes built before 1978 to provide a lead-based paint disclosure form and give buyers a 10-day period to conduct an inspection. Agents must ensure this form is completed.
-- Stigmatized Property: a property that has a psychological impact on buyers due to past events — such as a death, crime, or alleged haunting — but no physical defect. Disclosure rules for stigmatized properties vary by state.
-- Megan's Law Disclosure: some states require agents to notify buyers that they can check sex offender registries. Agents are not required to know or disclose the specific locations of registered offenders.
-- Psychologically Impacted Property: property where a death, crime, or other event may affect buyer willingness to purchase. Agents should know their state's specific rules — some states prohibit asking about deaths in a home.
-- Property Condition vs. Agent's Opinion: agents must distinguish between verifiable facts (which must be disclosed) and opinions or puffery (which are not binding). Saying a neighborhood is "great" is puffery. Saying there are no leaks when there are is fraud.
-- Misrepresentation Types: (1) Innocent misrepresentation — false statement made without knowledge it was false; (2) Negligent misrepresentation — false statement made without reasonable investigation; (3) Fraudulent misrepresentation — intentional false statement to induce a buyer. Fraud is the most serious and can result in rescission, damages, and license loss.
-- Structural Disclosures: sellers and agents must disclose known issues with roof, foundation, walls, windows, doors, gutters, and downspouts. A leaking roof that was patched must be disclosed even if it appears dry now.
-- Systems Disclosures: known defects in plumbing, electrical, HVAC, and appliances that are fixtures must be disclosed.
-- Zoning and Planning Disclosures: if the agent knows a property is in a flood zone, flight path, or subject to a special assessment, this must be disclosed even if the buyer does not ask.
-- As-Is Sale: selling a property "as-is" does not eliminate the duty to disclose known material defects. It only means the seller will not make repairs. Buyers retain the right to inspect.
-- Warranty Types: (1) Express warranty — a specific written or verbal promise about the property; (2) Implied warranty — automatically assumed, such as new construction being habitable; (3) Home warranty — a service contract covering repair or replacement of major systems and appliances.
- 
-TRANSFER OF TITLE — EXPANDED:
-- Title Insurance: a policy protecting against losses from defects in the title that existed before the policy was issued. Two types: (1) Owner's policy — protects the buyer; (2) Lender's (mortgagee's) policy — protects the lender. Only the lender's policy is typically required; the owner's policy is optional but strongly recommended.
-- Title Search: a review of public records to trace the chain of ownership and identify any claims, liens, or encumbrances on a property. Conducted before closing.
-- Title Abstract: a condensed history of all recorded documents affecting the title to a specific parcel. Prepared by a title company or attorney.
-- Chain of Title: the complete sequence of historical transfers of ownership from the original grant to the present owner. A break in the chain creates a cloud on title.
-- Cloud on Title: any claim, lien, or encumbrance that casts doubt on the owner's ability to convey clear title. Must be resolved before a clean transfer.
-- Quiet Title Action: a court proceeding used to resolve competing claims to a property and establish clear ownership.
-- Deed Requirements — Essential Elements: (1) grantor with legal capacity; (2) grantee identified with reasonable certainty; (3) words of conveyance (granting clause); (4) legal description of the property; (5) consideration (can be nominal — "$1 and other good and valuable consideration"); (6) signature of the grantor; (7) delivery and acceptance. Recording is NOT required for a deed to be valid between parties, but is required to protect against third-party claims.
-- General Warranty Deed: the grantor warrants the title against all defects, even those arising before the grantor owned it. Provides the broadest protection to the buyer. Most commonly used in residential sales.
-- Special Warranty Deed: the grantor warrants the title only against defects that arose during their period of ownership — not before. Commonly used by corporations, estates, and foreclosures.
-- Quitclaim Deed: conveys only whatever interest the grantor has, with no warranties at all. Used to clear title defects, transfer between family members, or correct errors. Provides no protection to the buyer.
-- Bargain and Sale Deed: implies the grantor holds title but makes no warranty against encumbrances. Used in some states for tax sales and foreclosures.
-- When Title Passes: title passes upon delivery and acceptance of the deed, not at signing or recording.
-- Recording: filing documents with the county recorder to give constructive notice to the world of ownership or encumbrances. Recording protects against subsequent claims by third parties. First to record generally prevails.
-- Constructive Notice: notice given to the world through recording — the public is legally assumed to know what has been recorded even if they did not actually check.
-- Actual Notice: direct knowledge of a fact — the buyer was actually told or discovered the information personally.
-- Intestate Succession: dying without a valid will. Property passes to heirs according to the state's laws of descent and distribution.
-- Testate: dying with a valid will. The will directs how property is distributed.
-- Probate: the legal process of validating a will and supervising distribution of the deceased's estate.
-- Foreclosure: the legal process by which a lender forces the sale of a property when the borrower defaults. Two types: (1) Judicial foreclosure — goes through court; (2) Non-judicial foreclosure (power of sale) — lender forecloses without court involvement per the deed of trust. After foreclosure there may be a statutory redemption period during which the borrower can reclaim the property by paying what is owed.
-- Short Sale: the lender agrees to accept less than the full loan balance when the property is sold. Requires lender approval. The difference may be forgiven or the borrower may still owe it (deficiency) depending on the agreement and state law.
-- HUD-1 Settlement Statement: the closing disclosure form used in transactions involving federally related mortgage loans. Lists all charges and credits to the buyer and seller. Now largely replaced by the Closing Disclosure form under TRID for most transactions.
-- TRID (TILA-RESPA Integrated Disclosure): rules requiring lenders to provide a Loan Estimate within 3 business days of application and a Closing Disclosure at least 3 business days before closing. Designed to help buyers understand their loan costs.
-- Proration at Closing: dividing periodic expenses (property taxes, HOA dues, rent, insurance) between buyer and seller based on the closing date. The party who owes the amount pays their proportional share.
-- Transfer Tax (Conveyance Tax): a tax imposed by state or local governments on the transfer of real property. Sometimes called revenue stamps or deed stamps. The rate and who pays varies by location.
-- Tax-Free Exchange (1031 Exchange): allows an investor to defer capital gains taxes by reinvesting proceeds from a sold investment property into a like-kind replacement property. Must identify replacement within 45 days, close within 180 days. Primary residences do not qualify.
- 
-ANTITRUST LAWS IN REAL ESTATE:
-- Sherman Antitrust Act: federal law prohibiting agreements that restrain trade or create monopolies. Real estate practitioners must avoid any agreements with competitors that limit competition.
-- Price Fixing: an illegal agreement between competing brokers to set commission rates at a fixed level. Each brokerage must independently set its own fees. Never discuss commission rates with competing brokers.
-- Market Allocation: an illegal agreement between competing brokers to divide up geographic areas or types of clients. Example: agreeing that one firm handles the north side of town while another handles the south.
-- Group Boycott (Concerted Refusal to Deal): competing brokers agreeing to refuse to work with a specific company or individual. Illegal under antitrust law.
-- Tie-In Arrangement: requiring a buyer to purchase one product or service as a condition of purchasing another. Example: requiring a buyer to use a specific title company as a condition of the sale.
-- Per Se Violations: certain antitrust violations are automatically illegal regardless of their effect — price fixing, market allocation, and group boycotts are per se violations.
-- Safe Practices: agents should never discuss commission rates with agents from competing firms, never agree to avoid certain neighborhoods or clients, and always set fees through their own broker independently.
- 
-ENVIRONMENTAL HAZARDS — EXPANDED:
-- Lead-Based Paint: used in homes built before 1978. Hazardous when it deteriorates or is disturbed (chipping, sanding). Federal law requires disclosure and a 10-day inspection period for pre-1978 homes.
-- Asbestos: a fibrous mineral used in insulation, floor tiles, and roofing before the 1980s. Dangerous when disturbed (friable). Non-friable asbestos that is in good condition is often left in place. Removal must be done by a licensed abatement contractor.
-- Radon: a colorless, odorless radioactive gas that forms from the natural decay of uranium in soil. Seeps into buildings through foundation cracks. The EPA action level is 4 picocuries per liter (pCi/L). Mitigated with sub-slab depressurization systems.
-- Urea-Formaldehyde Foam Insulation (UFFI): used as insulation in the 1970s. Releases formaldehyde gas, which is a health hazard. Now banned for residential use.
-- Underground Storage Tanks (USTs): tanks buried underground used to store petroleum or chemicals. Leaking USTs contaminate soil and groundwater. Sellers must disclose known USTs. Properties with suspected UST contamination require environmental assessment.
-- Mold: a fungal growth that thrives in moisture. Can cause health issues, especially for people with respiratory conditions. Disclosure required if seller knows of mold issues. Remediation involves fixing the moisture source first.
-- Electromagnetic Fields (EMFs): generated by high-voltage power lines and electrical equipment. Some buyers are concerned about health effects. Whether these must be disclosed varies by state.
-- Floodplain: land that is at risk of flooding. Properties in FEMA-designated Special Flood Hazard Areas (SFHAs) require flood insurance if the buyer is obtaining a federally backed mortgage.
-- Brownfield: a previously developed property potentially contaminated by industrial or commercial use. May be eligible for cleanup grants.
-- Superfund (CERCLA): federal law that imposes liability for cleanup of contaminated sites on current and former owners, operators, and those who disposed of hazardous substances — even if they did not cause the contamination. Ignorance is not a defense.
-- Phase I Environmental Assessment: a review of historical records and site inspection to identify potential contamination. No soil or groundwater testing. Required by lenders before many commercial loans.
- 
-PROPERTY MANAGEMENT AND LANDLORD/TENANT:
-- Property Manager: a person or firm hired by a property owner to oversee the day-to-day operations of a rental property. Acts as an agent of the owner. Duties include leasing, rent collection, maintenance, and tenant relations.
-- Management Agreement: the contract between the property owner and property manager defining the scope of services, fees, and authority of the manager.
-- Gross Lease: the landlord pays all operating expenses (taxes, insurance, maintenance). The tenant pays a flat rent. Common in residential rentals.
-- Net Lease: the tenant pays base rent plus some or all operating expenses. Three types: (1) Single net — tenant pays base rent plus property taxes; (2) Double net (NN) — tenant pays base rent plus taxes and insurance; (3) Triple net (NNN) — tenant pays base rent plus taxes, insurance, and maintenance. Common in commercial real estate.
-- Percentage Lease: the tenant pays a base rent plus a percentage of their gross sales above a certain threshold. Common in retail.
-- Security Deposit: money collected from a tenant at the start of tenancy held as protection against damage or unpaid rent. Most states limit the amount and require return within a set number of days after move-out, with an itemized list of any deductions.
-- Eviction: the legal process of removing a tenant from a property. Must follow state-mandated procedures. Self-help eviction (changing locks, removing belongings) is illegal in most states.
-- Constructive Eviction: when a landlord's failure to maintain habitable conditions forces a tenant to leave. The tenant may be released from lease obligations if conditions are severe enough.
-- Warranty of Habitability: an implied warranty in most states that the landlord will maintain the rental unit in a safe, livable condition — functioning heat, plumbing, weatherproofing, and freedom from pests.
-- Lease Termination: a lease can be terminated by expiration, mutual agreement, breach, abandonment, condemnation, or constructive eviction. A lease for a specific term does not require notice to end — it simply expires.
-- Month-to-Month Tenancy: a periodic tenancy that renews each month. Either party can terminate with proper notice (often 30 days).
-- Holdover Tenant: a tenant who remains in possession after the lease expires without the landlord's consent. The landlord can treat this as a trespass (and pursue eviction) or accept rent and create a new periodic tenancy.
-- Americans with Disabilities Act (ADA): requires reasonable accommodations for people with disabilities in places of public accommodation and commercial buildings. Applies to commercial property, not private residences, though Fair Housing Act covers reasonable modifications in residential.
-- Capitalization Rate (Cap Rate): Net Operating Income divided by Property Value. Used to evaluate income-producing properties. A higher cap rate suggests higher return but also higher risk.
-- Net Operating Income (NOI): Effective Gross Income minus Operating Expenses. Does NOT include mortgage payments (debt service).
-- Gross Rent Multiplier (GRM): Sales Price divided by Gross Monthly Rent. A quick way to compare rental properties. Lower GRM = better value relative to rent.
- 
-MORTGAGE FRAUD AND PREDATORY LENDING:
-- Mortgage Fraud: any intentional misrepresentation, misstatement, or omission on a mortgage application or related documents. Two main types: (1) Fraud for housing — borrower inflates income or assets to qualify; (2) Fraud for profit — industry insiders scheme to extract money from lenders.
-- Straw Buyer: a person who applies for a mortgage on behalf of someone else who could not qualify. The actual buyer stays hidden. This is mortgage fraud.
-- Inflated Appraisal: when an appraiser overstates a property's value, often in coordination with a seller or lender, to allow a larger loan. This is fraud.
-- Predatory Lending: abusive lending practices that take advantage of borrowers — especially elderly, low-income, or minority borrowers — through deceptive terms, excessive fees, or unsuitable loan products.
-- Steering: directing buyers or borrowers toward specific loan products or neighborhoods based on race, religion, or other protected characteristics. Illegal under Fair Housing and ECOA.
-- Flipping (Illegal): buying a property and quickly reselling it at an artificially inflated price using a fraudulent appraisal, often to a straw buyer with a fake mortgage. Distinguished from legal fix-and-flip investing.
-- Equity Stripping: a predatory scheme where a lender extends a loan based on home equity rather than the borrower's ability to repay, knowing the borrower will default and the lender will take the home.
-- Loan Flipping: a predatory practice where a lender repeatedly refinances a borrower's loan, generating fees each time but leaving the borrower with increasing debt and diminishing equity.
-- Balloon Payment Risks: some predatory loans feature low initial payments followed by a large balloon payment the borrower cannot afford. Agents should make sure buyers understand the full loan terms.
-- Usury: charging an interest rate above the legal maximum set by state law. Illegal.
-- Agent Responsibilities: agents should encourage clients to work with reputable lenders, review loan documents carefully, and report any suspicious loan activity. Participating in a fraudulent transaction — even unknowingly — can result in license suspension.
- 
-TECHNOLOGY IN REAL ESTATE:
-- Electronic Signatures: legally binding in real estate transactions under the Electronic Signatures in Global and National Commerce Act (E-SIGN Act) and the Uniform Electronic Transactions Act (UETA). Both parties must consent to using electronic signatures.
-- MLS (Multiple Listing Service): a database used by member brokers to share property listings and offer compensation to cooperating brokers. MLS rules govern how listings must be entered, updated, and displayed.
-- Internet Advertising Rules: all online advertising must comply with fair housing laws. Ads cannot use language that signals a preference for or against any protected class. Photos and descriptions must not imply discrimination.
-- Social Media and Agency: posting about a listing or client on social media without authorization may violate confidentiality duties. Agents must be careful not to inadvertently create an agency relationship through online communications.
-- Data Security: agents handle sensitive personal and financial information. Proper cybersecurity practices — secure passwords, encrypted email, careful document disposal — are essential to protect clients and comply with privacy laws.
-- Automated Valuation Models (AVMs): computer-generated estimates of property value using public data. Not a substitute for a licensed appraisal. Agents should educate clients on the limitations of AVMs like Zillow Zestimates.
-- Virtual Tours and Remote Transactions: technology allows buyers to view properties remotely and sign documents electronically. Agents must ensure all required disclosures are still provided and all signatures are properly obtained even in a fully remote transaction.
- 
-SUBDIVISIONS:
-- Subdivision: the division of a single parcel of land into two or more lots for sale or development. Requires approval from local government through a platting process.
-- Plat Map: a recorded survey showing the division of land into lots, blocks, streets, and easements. Once recorded, the plat map becomes the legal description for the individual lots.
-- Dedication: the transfer of privately owned land to public use — typically streets, parks, or utilities — as part of the subdivision approval process.
-- CC&Rs (Covenants, Conditions, and Restrictions): private deed restrictions that run with the land and govern how property in a subdivision can be used. Enforced by the HOA or neighboring owners, not the government.
-- HOA (Homeowners Association): an organization that manages common areas and enforces CC&Rs in a planned community, condominium, or subdivision. Members pay dues. The HOA can place a lien on a property for unpaid dues.
-- Public Offering Statement: a required disclosure document given to buyers of property in a new subdivision before purchase. Contains information about the developer, the property, any restrictions, and the financial condition of the HOA.
-- Interstate Land Sales Full Disclosure Act: federal law requiring developers selling lots in subdivisions of 100 or more lots across state lines to register with the Consumer Financial Protection Bureau (CFPB) and provide buyers with a Property Report at least 3 days before signing.
- 
-COMMERCIAL, INDUSTRIAL AND INCOME PROPERTY:
-- Commercial Real Estate Categories: office, retail, industrial, multifamily (5+ units), hospitality, and special purpose.
-- Office Property Classes: Class A (best quality, highest rents, newest or well-maintained), Class B (average quality, functional but not prestigious), Class C (older, lower rent, in need of renovation).
-- Industrial Property Types: heavy manufacturing, light assembly, flex space (combination of office and warehouse), warehouse/distribution.
-- Retail Property Types: strip mall, regional mall, power center (anchored by big-box stores), neighborhood center, lifestyle center.
-- Income Approach to Value: used primarily for income-producing properties. Value = Net Operating Income divided by Cap Rate.
-- Operating Expense Ratio: Operating Expenses divided by Effective Gross Income. A lower ratio indicates more efficient management.
-- Vacancy and Credit Loss: an allowance subtracted from potential gross income to account for empty units and uncollected rent. Typically expressed as a percentage.
-- Potential Gross Income (PGI): the total income a property would generate if 100% occupied at market rent.
-- Effective Gross Income (EGI): PGI minus vacancy and credit loss allowance.
-- Cash-on-Cash Return: annual pre-tax cash flow divided by total cash invested. Measures the return on actual dollars invested, not total value.
-- Leverage: using borrowed money to increase potential return on investment. Positive leverage means the return on the property exceeds the cost of borrowing. Negative leverage means the opposite.
 `
  
 const FLASHCARDS = [
@@ -668,7 +539,6 @@ const [newAchievement, setNewAchievement] = useState(null)
 const [userName, setUserName] = useState(() => localStorage.getItem("userName") || "")
 const [isUnlocked, setIsUnlocked] = useState(() => localStorage.getItem("isUnlocked") === "true")
 const [cardsStudied, setCardsStudied] = useState(() => parseInt(localStorage.getItem("cardsStudied") || "0"))
-const [lastCategory, setLastCategory] = useState("All")
 const [formulasViewed, setFormulasViewed] = useState(() => parseInt(localStorage.getItem("formulasViewed") || "0"))
 const [totalAnswered, setTotalAnswered] = useState(() => parseInt(localStorage.getItem("totalAnswered") || "0"))
  
@@ -707,6 +577,7 @@ const navItems = [
 { id: "terms", icon: <List size={16} />, label: "Key Terms" },
 { id: "tutor", icon: <Bot size={16} />, label: "AI Tutor" },
 { id: "math", icon: <Calculator size={16} />, label: "Math" },
+{ id: "visuals", icon: <Brain size={16} />, label: "Visuals" },
 ]
  
 const CORRECT_PASSWORD = "hayyly2025"
@@ -758,9 +629,10 @@ return (
  
 <nav className="nav">
 {navItems.map(t => (
-<button key={t.id} className={`nav-btn ${tab === t.id ? "active" : ""}`} onClick={() => setLastCategory(tab);
-      setTab(t.id)}>
-{t.icon}<span>{t.label}</span>
+<button key={t.id} className={`nav-btn ${tab === t.id ? "active" : ""}`} onClick={() => setTab(t.id)}>
+<span className="nav-btn-icon">{t.icon}</span>
+<span className="nav-btn-label">{t.label}</span>
+{tab === t.id && <span className="nav-active-pip" />}
 </button>
 ))}
 </nav>
@@ -773,20 +645,20 @@ return (
 {tab === "terms" && <KeyTerms />}
 {tab === "tutor" && <AITutor />}
 {tab === "math" && <MathPractice addXP={addXP} />}
+{tab === "visuals" && <VisualAids addXP={addXP} />}
 </main>
 </div>
 )
 }
  
-function Dashboard({ xp, streak, level, xpForLevel, achievements, cardsStudied, totalAnswered, setTab, name, lastCategory }) {
+function Dashboard({ xp, streak, level, xpForLevel, achievements, cardsStudied, totalAnswered, setTab, name }) {
 return (
 <div className="dashboard">
 <div className="welcome-card">
 <div className="welcome-badge"><span className="pulse-dot" />Study Session Active</div>
 <h1 className="gradient-text">Welcome back, {name}!</h1>
 <p className="welcome-sub">You are on your way to passing that real estate exam. Keep going!</p>
-<button className="btn btn-gradient" style={{ marginTop: 16 }} onClick={() => setLastCategory(tab);
-      setTab("flashcards")}>Start Studying</button>
+<button className="btn btn-gradient" style={{ marginTop: 16 }} onClick={() => setTab("flashcards")}>Start Studying</button>
 </div>
  
 <div className="stats-grid">
@@ -973,14 +845,20 @@ return (
 <h3 className="question-text">{q.question}</h3>
 <div className="options">
 {q.options.map((opt, i) => (
-<button key={i} className={"option " + (selected !== null ? (i === q.answer ? "correct" : i === selected ? "wrong" : "") : "")} onClick={() => handleAnswer(i)}>
-<span className="option-letter">{["A","B","C","D"][i]}</span>{opt}
+<button key={i} className={"option " + (selected !== null ? (i === q.answer ? "correct" : i === selected ? "wrong" : "") : "")} onClick={() => handleAnswer(i)} disabled={selected !== null}>
+<span className="option-letter">{["A","B","C","D"][i]}</span>
+<span style={{ flex: 1 }}>{opt}</span>
+{selected !== null && i === q.answer && <CheckCircle2 size={17} className="option-state-icon correct-icon" />}
+{selected !== null && i === selected && i !== q.answer && <XCircle size={17} className="option-state-icon wrong-icon" />}
 </button>
 ))}
 </div>
 {selected !== null && (
 <div className={"explanation " + (selected === q.answer ? "correct-exp" : "wrong-exp")}>
-<strong>{selected === q.answer ? "Correct!" : "Not quite!"}</strong>
+<div className={"exp-header " + (selected === q.answer ? "correct-header" : "wrong-header")}>
+{selected === q.answer ? <CheckCheck size={14} /> : <XCircle size={14} />}
+{selected === q.answer ? "Correct!" : "Not quite — here's why:"}
+</div>
 <p>{q.explanation}</p>
 </div>
 )}
@@ -1074,10 +952,7 @@ const [messages, setMessages] = useState([
 const [input, setInput] = useState("")
 const [loading, setLoading] = useState(false)
  
- 
 useEffect(() => { messagesEndRef.current?.scrollIntoView({ behavior: "smooth" }) }, [messages, loading])
- 
- 
  
 const QUICK_PROMPTS = [
 "What are the 7 Fair Housing protected classes?",
@@ -1116,7 +991,6 @@ return (
 <div className="section tutor-section">
 <div className="tutor-header-row">
 <h2 className="gradient-text">AI Tutor</h2>
- 
 </div>
 <div className="quick-prompts">
 {QUICK_PROMPTS.map((p, i) => (
@@ -1341,7 +1215,6 @@ const [xpEarned, setXpEarned] = useState(0)
  
 const topics = ["All", ...Array.from(new Set(MATH_PROBLEMS.map(p => p.topic)))]
 const filtered = topic === "All" ? MATH_PROBLEMS : MATH_PROBLEMS.filter(p => p.topic === topic)
- 
 const problem = filtered[currentIdx % filtered.length]
  
 const handleAnswer = (idx) => {
@@ -1454,8 +1327,11 @@ else if (i === selected && i !== problem.correct) { bg = "rgba(239,68,68,0.12)";
 }
 return (
 <button key={i} onClick={() => handleAnswer(i)} disabled={selected !== null}
-style={{ background: bg, border: `1px solid ${border}`, borderRadius: 10, padding: "0.85rem 1rem", textAlign: "left", color: "var(--color-text)", cursor: selected !== null ? "default" : "pointer", fontSize: "0.9rem", transition: "all 0.2s" }}>
-<span style={{ fontWeight: 700, marginRight: 8, color: "var(--color-muted)" }}>{["A","B","C","D"][i]}.</span>{opt}
+style={{ background: bg, border: `1px solid ${border}`, borderRadius: 10, padding: "0.85rem 1rem", textAlign: "left", color: "var(--color-text)", cursor: selected !== null ? "default" : "pointer", fontSize: "0.9rem", transition: "all 0.2s", display: "flex", alignItems: "center", gap: 8 }}>
+<span style={{ fontWeight: 700, color: "var(--color-muted)", flexShrink: 0 }}>{["A","B","C","D"][i]}.</span>
+<span style={{ flex: 1 }}>{opt}</span>
+{selected !== null && i === problem.correct && <CheckCircle2 size={17} style={{ color: "#34d399", flexShrink: 0 }} />}
+{selected !== null && i === selected && i !== problem.correct && <XCircle size={17} style={{ color: "#f87171", flexShrink: 0 }} />}
 </button>
 )
 })}
@@ -1463,7 +1339,7 @@ style={{ background: bg, border: `1px solid ${border}`, borderRadius: 10, paddin
  
 {showSolution && (
 <div style={{ background: "rgba(34,197,94,0.06)", border: "1px solid rgba(34,197,94,0.2)", borderRadius: 12, padding: "1rem 1.2rem", marginBottom: 16 }}>
-<div style={{ fontWeight: 700, color: "#22c55e", marginBottom: 8 }}>Step-by-Step Solution</div>
+<div style={{ fontWeight: 700, color: "#22c55e", marginBottom: 8, display: "flex", alignItems: "center", gap: 6 }}><CheckCheck size={15} />Step-by-Step Solution</div>
 {problem.steps.map((s, i) => (
 <div key={i} style={{ fontSize: "0.88rem", marginBottom: 4, paddingLeft: 8 }}>
 <span style={{ color: "var(--color-blue)", fontWeight: 700, marginRight: 6 }}>{i + 1}.</span>{s}
