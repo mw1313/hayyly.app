@@ -4,6 +4,7 @@ import "./App.css"
 import VisualAids from "./VisualAids" 
 import { useAuth } from "./AuthContext"
 import Login from "./Login"
+import { supabase } from "./supabaseClient"
  
 const KNOWLEDGE_BASE = `
 PROPERTY OWNERSHIP:
@@ -534,6 +535,9 @@ const CARD_CATEGORIES = ["All", ...Array.from(new Set(FLASHCARDS.map(c => c.cate
  
 export default function App() {
   const { session, loading } = useAuth()
+  const handleLogout = async () => {
+    await supabase.auth.signOut()
+  }
 const [tab, setTab] = useState("dashboard")
 const [xp, setXp] = useState(() => parseInt(localStorage.getItem("xp") || "0"))
 const [streak, setStreak] = useState(() => parseInt(localStorage.getItem("streak") || "0"))
@@ -654,6 +658,12 @@ return (
 <div className="stat-pill">⚡ {xp} XP</div>
 <div className="stat-pill">🔥 {streak} streak</div>
 <div className="stat-pill emerald">🏆 Level {level}</div>
+<div className="header-stats">
+<div className="stat-pill">⚡ {xp} XP</div>
+<div className="stat-pill">🔥 {streak} streak</div>
+<div className="stat-pill emerald">🏆 Level {level}</div>
+<button className="stat-pill" onClick={handleLogout} style={{ cursor: "pointer", border: "none" }}>Log out</button>
+</div>
 </div>
 </header>
  
