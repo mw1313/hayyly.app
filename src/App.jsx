@@ -568,10 +568,9 @@ export default function App() {
         setFormulasViewed(data.formulas_viewed || 0)
         setTotalAnswered(data.total_answered || 0)
         setUserName(data.user_name || "")
-      setIsPaid(data.is_paid || false)
+        setIsPaid(data.is_paid || false)
         setTrialEndsAt(data.trial_ends_at || null)
       }
-
       setProfileLoaded(true)
     }
  
@@ -588,9 +587,9 @@ const [userName, setUserName] = useState(() => localStorage.getItem("userName") 
 const [cardsStudied, setCardsStudied] = useState(() => parseInt(localStorage.getItem("cardsStudied") || "0"))
 const [formulasViewed, setFormulasViewed] = useState(() => parseInt(localStorage.getItem("formulasViewed") || "0"))
 const [totalAnswered, setTotalAnswered] = useState(() => parseInt(localStorage.getItem("totalAnswered") || "0"))
- const [isPaid, setIsPaid] = useState(false)
+const [isPaid, setIsPaid] = useState(false)
 const [trialEndsAt, setTrialEndsAt] = useState(null)
-
+ 
 // ── STREAK LOGIC ──
 // Runs once when the app loads. Compares today's date to the last recorded
 // study date and updates the streak accordingly:
@@ -681,6 +680,7 @@ const navItems = [
 ]
 if (loading) return null
 if (!session) return <Login />
+ 
 const trialActive = trialEndsAt && new Date(trialEndsAt) > new Date()
 const hasAccess = isPaid || trialActive
 if (profileLoaded && !hasAccess) return <UpgradeScreen userId={session.user.id} />
@@ -1299,51 +1299,6 @@ const MATH_PROBLEMS = [
 ]
  
 function MathPractice({ addXP }) {
-  function UpgradeScreen({ userId }) {
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState("")
-
-  const handleUpgrade = async () => {
-    setLoading(true)
-    setError("")
-    try {
-      const res = await fetch("/api/create-checkout-session", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ userId })
-      })
-      const data = await res.json()
-      if (data.url) {
-        window.location.href = data.url
-      } else {
-        setError("Could not start checkout. Please try again.")
-        setLoading(false)
-      }
-    } catch {
-      setError("Connection error. Please try again.")
-      setLoading(false)
-    }
-  }
-
-  const handleLogout = async () => {
-    await supabase.auth.signOut()
-  }
-
-  return (
-    <div style={{ minHeight: "100vh", background: "#09090b", display: "flex", alignItems: "center", justifyContent: "center", padding: "1.5rem", fontFamily: "'DM Sans', sans-serif" }}>
-      <div style={{ width: "100%", maxWidth: 420, background: "#1a1a20", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 20, padding: "2.5rem", textAlign: "center" }}>
-        <div style={{ width: 48, height: 48, background: "linear-gradient(135deg, #3b82f6, #22c55e)", borderRadius: 12, display: "inline-flex", alignItems: "center", justifyContent: "center", fontWeight: 800, fontSize: "1rem", color: "#fff", marginBottom: "1.5rem" }}>HY</div>
-        <h2 style={{ color: "#f4f4f5", fontWeight: 800, fontSize: "1.5rem", marginBottom: "0.5rem" }}>Your free trial has ended</h2>
-        <p style={{ color: "#a1a1aa", fontSize: "0.9rem", marginBottom: "1.5rem", lineHeight: 1.6 }}>Continue your exam prep — keep your progress, XP, and streak. $9.99 per month, cancel anytime.</p>
-        {error && <p style={{ color: "#ef4444", fontSize: "0.85rem", marginBottom: "1rem" }}>{error}</p>}
-        <button onClick={handleUpgrade} disabled={loading} style={{ width: "100%", padding: "0.9rem", background: "linear-gradient(90deg, #3b82f6, #22c55e, #f97316)", color: "#fff", border: "none", borderRadius: 10, fontWeight: 700, fontSize: "0.95rem", cursor: loading ? "not-allowed" : "pointer", opacity: loading ? 0.7 : 1, marginBottom: "0.75rem" }}>
-          {loading ? "Loading..." : "Continue for $9.99/month"}
-        </button>
-        <button onClick={handleLogout} style={{ background: "none", border: "none", color: "#71717a", fontSize: "0.82rem", cursor: "pointer" }}>Log out</button>
-      </div>
-    </div>
-  )
-}
 const [mode, setMode] = useState("menu")
 const [currentIdx, setCurrentIdx] = useState(0)
 const [selected, setSelected] = useState(null)
@@ -1496,4 +1451,50 @@ style={{ background: bg, border: `1px solid ${border}`, borderRadius: 10, paddin
 )}
 </div>
 )
+}
+ 
+function UpgradeScreen({ userId }) {
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState("")
+ 
+  const handleUpgrade = async () => {
+    setLoading(true)
+    setError("")
+    try {
+      const res = await fetch("/api/create-checkout-session", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ userId })
+      })
+      const data = await res.json()
+      if (data.url) {
+        window.location.href = data.url
+      } else {
+        setError("Could not start checkout. Please try again.")
+        setLoading(false)
+      }
+    } catch {
+      setError("Connection error. Please try again.")
+      setLoading(false)
+    }
+  }
+ 
+  const handleLogout = async () => {
+    await supabase.auth.signOut()
+  }
+ 
+  return (
+    <div style={{ minHeight: "100vh", background: "#09090b", display: "flex", alignItems: "center", justifyContent: "center", padding: "1.5rem", fontFamily: "'DM Sans', sans-serif" }}>
+      <div style={{ width: "100%", maxWidth: 420, background: "#1a1a20", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 20, padding: "2.5rem", textAlign: "center" }}>
+        <div style={{ width: 48, height: 48, background: "linear-gradient(135deg, #3b82f6, #22c55e)", borderRadius: 12, display: "inline-flex", alignItems: "center", justifyContent: "center", fontWeight: 800, fontSize: "1rem", color: "#fff", marginBottom: "1.5rem" }}>HY</div>
+        <h2 style={{ color: "#f4f4f5", fontWeight: 800, fontSize: "1.5rem", marginBottom: "0.5rem" }}>Your free trial has ended</h2>
+        <p style={{ color: "#a1a1aa", fontSize: "0.9rem", marginBottom: "1.5rem", lineHeight: 1.6 }}>Continue your exam prep — keep your progress, XP, and streak. $9.99 per month, cancel anytime.</p>
+        {error && <p style={{ color: "#ef4444", fontSize: "0.85rem", marginBottom: "1rem" }}>{error}</p>}
+        <button onClick={handleUpgrade} disabled={loading} style={{ width: "100%", padding: "0.9rem", background: "linear-gradient(90deg, #3b82f6, #22c55e, #f97316)", color: "#fff", border: "none", borderRadius: 10, fontWeight: 700, fontSize: "0.95rem", cursor: loading ? "not-allowed" : "pointer", opacity: loading ? 0.7 : 1, marginBottom: "0.75rem" }}>
+          {loading ? "Loading..." : "Continue for $9.99/month"}
+        </button>
+        <button onClick={handleLogout} style={{ background: "none", border: "none", color: "#71717a", fontSize: "0.82rem", cursor: "pointer" }}>Log out</button>
+      </div>
+    </div>
+  )
 }
